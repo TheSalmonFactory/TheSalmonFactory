@@ -1,72 +1,58 @@
 package com.me.thesalmonfactory;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
+import com.me.thesalmonfactory.helpers.GameContext;
+import com.me.thesalmonfactory.input.*;
 
 public class TheSalmonFactory implements ApplicationListener {
-   Texture dropImage;
-   Texture bucketImage;
-   Sound dropSound;
-   Music rainMusic;
-   SpriteBatch batch;
-   OrthographicCamera camera;
-   Rectangle bucket;
-   Array<Rectangle> raindrops;
-   long lastDropTime;
+	   
+   private enum ApplicationState {
+	    BEGINSCREEN, GAME, ENDSCREEN
+	}
+   
+   private ApplicationState m_State;
+   private Game m_Game;
+   private BeginScreen m_BeginScreen;
+   private EndScreen m_EndScreen;
+   
+   private Player m_Player;
+   
+   public GameContext m_Context;
    
    @Override
    public void create() {
-      // load the images for the droplet and the bucket, 64x64 pixels each
-      dropImage = new Texture(Gdx.files.internal("droplet.png"));
-      bucketImage = new Texture(Gdx.files.internal("bucket.png"));
-      
-      // load the drop sound effect and the rain background "music"
-      dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-      rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-      
-      // start the playback of the background music immediately
-      rainMusic.setLooping(true);
-      rainMusic.play();
+      //Create Context
+      m_Context = new GameContext();
+      m_Context.Initialize();
+      m_Context.GameTime = 0.01f;
       
       // create the camera and the SpriteBatch
-      camera = new OrthographicCamera();
-      camera.setToOrtho(false, 800, 480);
-      batch = new SpriteBatch();
+      m_Context.Camera = new OrthographicCamera();
+      m_Context.Camera.setToOrtho(false, 1280, 720);
+      m_Context.Batch = new SpriteBatch();
       
-      // create a Rectangle to logically represent the bucket
-      bucket = new Rectangle();
-      bucket.x = 800 / 2 - 64 / 2; // center the bucket horizontally
-      bucket.y = 20; // bottom left corner of the bucket is 20 pixels above the bottom screen edge
-      bucket.width = 64;
-      bucket.height = 64;
+      //Create InputProcessors ( catch input events )
+      InputMultiplexer multiplexer = new InputMultiplexer();
+      multiplexer.addProcessor(new InputProcessorUI());
+      multiplexer.addProcessor(new InputProcessorGame());
+      Gdx.input.setInputProcessor(multiplexer);
       
-      // create the raindrops array and spawn the first raindrop
-      raindrops = new Array<Rectangle>();
-      spawnRaindrop();
-   }
-   
-   private void spawnRaindrop() {
-      Rectangle raindrop = new Rectangle();
-      raindrop.x = MathUtils.random(0, 800-64);
-      raindrop.y = 480;
-      raindrop.width = 64;
-      raindrop.height = 64;
-      raindrops.add(raindrop);
-      lastDropTime = TimeUtils.nanoTime();
+      //State of the game
+      m_State = ApplicationState.BEGINSCREEN;
+      
+      //Create Screens
+      m_Game = new Game();
+      m_BeginScreen = new BeginScreen();
+      m_EndScreen = new EndScreen();
+      
+      //Player game
+      m_Player = new Player();
+      m_Player.Initialize();
    }
 
    @Override
@@ -77,63 +63,22 @@ public class TheSalmonFactory implements ApplicationListener {
       // of the color to be used to clear the screen.
       Gdx.gl.glClearColor(0, 0, 0.2f, 1);
       Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-      
-      // tell the camera to update its matrices.
-      camera.update();
-      
-      // tell the SpriteBatch to render in the
-      // coordinate system specified by the camera.
-      batch.setProjectionMatrix(camera.combined);
-      
-      // begin a new batch and draw the bucket and
-      // all drops
-      batch.begin();
-      batch.draw(bucketImage, bucket.x, bucket.y);
-      for(Rectangle raindrop: raindrops) {
-         batch.draw(dropImage, raindrop.x, raindrop.y);
-      }
-      batch.end();
-      
-      // process user input
-      if(Gdx.input.isTouched()) {
-         Vector3 touchPos = new Vector3();
-         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-         camera.unproject(touchPos);
-         bucket.x = touchPos.x - 64 / 2;
-      }
-      if(Gdx.input.isKeyPressed(Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-      if(Gdx.input.isKeyPressed(Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
-      
-      // make sure the bucket stays within the screen bounds
-      if(bucket.x < 0) bucket.x = 0;
-      if(bucket.x > 800 - 64) bucket.x = 800 - 64;
-      
-      // check if we need to create a new raindrop
-      if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnRaindrop();
-      
-      // move the raindrops, remove any that are beneath the bottom edge of
-      // the screen or that hit the bucket. In the later case we play back
-      // a sound effect as well.
-      Iterator<Rectangle> iter = raindrops.iterator();
-      while(iter.hasNext()) {
-         Rectangle raindrop = iter.next();
-         raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-         if(raindrop.y + 64 < 0) iter.remove();
-         if(raindrop.overlaps(bucket)) {
-            dropSound.play();
-            iter.remove();
-         }
-      }
+      m_Context.Batch.setProjectionMatrix(m_Context.Camera.combined);
+      m_Context.Batch.begin();
+      Draw();
+      m_Context.Batch.end();
+      // update
+      Update();
    }
    
    @Override
    public void dispose() {
       // dispose of all the native resources
-      dropImage.dispose();
-      bucketImage.dispose();
-      dropSound.dispose();
-      rainMusic.dispose();
-      batch.dispose();
+      m_Context.Dispose();
+      m_Player.Dispose();
+      m_Game.Dispose();
+      m_BeginScreen.Dispose();
+      m_EndScreen.Dispose();
    }
 
    @Override
@@ -146,5 +91,35 @@ public class TheSalmonFactory implements ApplicationListener {
 
    @Override
    public void resume() {
+   }
+   
+   public void Update() {
+	   switch(m_State) {
+		   case GAME:
+			   m_Game.Update(m_Context);
+			   break;
+		   case BEGINSCREEN:
+			   m_BeginScreen.Update(m_Context);
+			   break;
+		   case ENDSCREEN:
+			   m_EndScreen.Update(m_Context);
+			   break;
+	   }
+	   m_Player.Update(m_Context);
+   }
+   
+   public void Draw() {
+	   switch(m_State) {
+		   case GAME:
+			   m_Game.Draw(m_Context);
+			   break;
+		   case BEGINSCREEN:
+			   m_BeginScreen.Draw(m_Context);
+			   break;
+		   case ENDSCREEN:
+			   m_EndScreen.Draw(m_Context);
+			   break;
+	   }
+	   m_Player.Draw(m_Context);
    }
 }
