@@ -8,11 +8,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-
 public class LevelParser {
 	
-	public int matrixWidth = 13, matrixHeight = 8;
+	public static final int matrixWidth = 13, matrixHeight = 8;
 	public int[][][] mapMatrix; 
 	
 	public void displayMatrix(){
@@ -37,6 +35,7 @@ public class LevelParser {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private static String getValue(String tag, Element element) {
 		NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
 		Node node = (Node) nodes.item(0);
