@@ -3,6 +3,7 @@ package com.me.thesalmonfactory.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.me.thesalmonfactory.Game;
+import com.me.thesalmonfactory.helpers.GameContext;
 import com.me.thesalmonfactory.objects.User;
 
 //Catch all the InputEvents related to GameInformation 
@@ -38,6 +39,7 @@ public class InputProcessorGame implements InputProcessor {
 
    @Override
    public boolean touchDown (int x, int y, int pointer, int button) {
+	  y = Gdx.app.getGraphics().getHeight() - y;
 	  m_Game.ProcessTouchDown(x, y, pointer);
 	  //Gdx.app.log("TouchDown", "x == " + x + " && y == " + y + " && pointer == " + pointer + " && button == " + button);
 	  if(pointer < MAX_USERS && pointer > -1) {
@@ -48,30 +50,18 @@ public class InputProcessorGame implements InputProcessor {
 
    @Override
    public boolean touchUp (int x, int y, int pointer, int button) {
+	  y = Gdx.app.getGraphics().getHeight() - y;
 	  m_Game.ProcessTouchUp(x, y, pointer);
 	  //Gdx.app.log("TouchUp", "x == " + x + " && y == " + y + " && pointer == " + pointer + " && button == " + button);
 	  if(pointer < MAX_USERS && pointer > -1) {
-		  switch(m_Users[pointer].StopRecord(x, y)) {
-			  case LINE:
-				  m_Game.ProcessActionLine(x, y);
-				  Gdx.app.log("Line Recorded @ ", "x == " + x + " && y == " + y + " && pointer == " + pointer + " && button == " + button);
-				  break;
-			  case MULTI_LINES:
-				  m_Game.ProcessActionMultiLines(x, y);
-				  break;
-			  case CIRCLE:
-				  m_Game.ProcessActionCircle(x, y);
-				  break;
-			  default:
-				  // else ... DO NOTHING!
-				  break;
-		  }
+		  CheckForAction(pointer, m_Users[pointer].StopRecord(x, y));
 	  }
       return false;
    }
 
    @Override
    public boolean touchDragged (int x, int y, int pointer) {
+	  y = Gdx.app.getGraphics().getHeight() - y;
 	  m_Game.ProcessTouchDown(x, y, pointer);
 	  //Gdx.app.log("TouchDrag", "x == " + x + " && y == " + y + " && pointer == " + pointer);
 	  if(pointer < MAX_USERS && pointer > -1) {
@@ -93,5 +83,37 @@ public class InputProcessorGame implements InputProcessor {
    public boolean mouseMoved(int screenX, int screenY) {
 	   // TODO Auto-generated method stub
 	   return false;
+   }
+   
+   public void Update(GameContext context) {
+	   for( User user : m_Users) {
+		   CheckForAction(user.m_ID, user.UpdateCheck(context));
+	   }
+   }
+   
+   public void Draw(GameContext context) {
+	   for( User user : m_Users) {
+		   user.Draw(context);
+	   }
+   }
+   
+   public void CheckForAction(int id, User.InputAction action) {
+	   switch(action) {
+		  case LINE:
+			  m_Game.ProcessActionLine((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y);
+			  Gdx.app.log("Record", "Line Recorded!");
+			  break;
+		  case MULTI_LINES:
+			  m_Game.ProcessActionMultiLines((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y);
+			  Gdx.app.log("Record", "MultiLines Recorded!");
+			  break;
+		  case CIRCLE:
+			  m_Game.ProcessActionCircle((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y);
+			  Gdx.app.log("Record", "Circle Recorded!");
+			  break;
+		  default:
+			  // else ... DO NOTHING!
+			  break;
+	  }
    }
 }
