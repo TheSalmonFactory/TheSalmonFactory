@@ -18,7 +18,7 @@ public class GameContext {
 	public void Initialize()
 	{
 		m_Spritesheet = new Texture(Gdx.files.internal("img/tilesheet-32.png"));
-		TILE_WIDTH = Gdx.app.getGraphics().getWidth() / 13;
+		TILE_WIDTH = (Gdx.app.getGraphics().getHeight() - 50 ) / 8;
 	}
 	
 	public void Dispose()
@@ -29,7 +29,10 @@ public class GameContext {
 	
 	public void DrawTile(int x, int y, int id)
 	{
-		Batch.draw(m_Spritesheet, x, y, (id % HOR_TILES) * TILE_WIDTH, 
-				(id / HOR_TILES) * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+		float uvExtra = 32.0f / 1024.0f;
+		float u = ((id % HOR_TILES) * TILE_WIDTH) / 1024.0f;
+		float v = ((id / HOR_TILES) * TILE_WIDTH) / 1024.0f;
+		Batch.draw(m_Spritesheet, x, y, TILE_WIDTH, TILE_WIDTH, 
+				u, v, u + uvExtra, v + uvExtra);
 	}
 }

@@ -1,12 +1,19 @@
 package com.me.thesalmonfactory;
 
-import java.io.*;
+//import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.XmlReader;
 
 public class LevelParser {
 	
@@ -46,14 +53,17 @@ public class LevelParser {
 	{
 		mapMatrix = new int[matrixWidth][matrixHeight][2]; 
 		
+		XmlReader xml = new XmlReader();
+		
 		//In Project: Gdx.files.internal("levels/levels0.xml")
-		File levelFile = new File("levels/level" + levelID + ".xml");
-
+		FileHandle levelFile = Gdx.files.internal("levels/level" + levelID + ".xml");
+		String fileContent = levelFile.readString();
+		//File file = new File(fileContent);
 		
 		try {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(levelFile);
+		Document doc = dBuilder.parse(fileContent);
 		doc.getDocumentElement().normalize();
 
 
