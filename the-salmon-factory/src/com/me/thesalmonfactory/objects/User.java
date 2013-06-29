@@ -20,10 +20,11 @@ public class User extends Entity{
 	public Vector2 m_AveragePosition;
 	private Vector2 m_Direction;
 	
-	private static final int MAX_CHECK_POSITIONS = 100;
+	private static final int MAX_CHECK_POSITIONS = 35;
 	
 	private Vector2[] m_CheckPositionArray;
 	private int m_CurrentCheckPositionID;
+	private int m_RealCheckPositionID;
 	
 	private static final int INITIAL_DIRECTION_DISTANCE_CHECK = 3;
 	
@@ -45,6 +46,7 @@ public class User extends Entity{
 			m_CheckPositionArray[i] = new Vector2(0,0);
 		}
 		m_CurrentCheckPositionID = 0;
+		m_RealCheckPositionID = 0;
 		
 		if(m_UserTilesheet == null) { 
 			m_UserTilesheet = new Texture(Gdx.files.internal("img/UserTilesheet.png"));
@@ -99,20 +101,31 @@ public class User extends Entity{
 			}
 		}
 		
-		if(m_CurrentCheckPositionID < MAX_CHECK_POSITIONS) { 
-			Vector2 lengthVector2 = new Vector2(  	m_CurrentPosition.x - m_CheckPosition.x, 
-					m_CurrentPosition.y - m_CheckPosition.y);
-			float length2 = lengthVector2.len();
-			if(length2 > INITIAL_DIRECTION_DISTANCE_CHECK) {
-				m_CheckPositionArray[m_CurrentCheckPositionID].x = m_CurrentPosition.x;
-				m_CheckPositionArray[m_CurrentCheckPositionID].y = m_CurrentPosition.y;
-				m_CheckPosition.x = m_CurrentPosition.x;
-				m_CheckPosition.y = m_CurrentPosition.y;
-				++m_CurrentCheckPositionID;
+		if(m_CurrentCheckPositionID == MAX_CHECK_POSITIONS) {
+			for(int i = 0 ; i < MAX_CHECK_POSITIONS - 1 ; i++) {
+				m_StartPosition.x = m_CheckPositionArray[i].x;
+				m_StartPosition.y = m_CheckPositionArray[i].y;
+				m_AveragePosition.x = m_StartPosition.x;
+				m_AveragePosition.y = m_StartPosition.y;
+				m_CheckPositionArray[i].x = m_CheckPositionArray[i+1].x;
+				m_CheckPositionArray[i].y = m_CheckPositionArray[i+1].y;
 			}
+			--m_CurrentCheckPositionID;
+			m_RealCheckPositionID = 0;
+		}
+		Vector2 lengthVector2 = new Vector2(  	m_CurrentPosition.x - m_CheckPosition.x, 
+				m_CurrentPosition.y - m_CheckPosition.y);
+		float length2 = lengthVector2.len();
+		if(length2 > INITIAL_DIRECTION_DISTANCE_CHECK) {
+			m_CheckPositionArray[m_CurrentCheckPositionID].x = m_CurrentPosition.x;
+			m_CheckPositionArray[m_CurrentCheckPositionID].y = m_CurrentPosition.y;
+			m_CheckPosition.x = m_CurrentPosition.x;
+			m_CheckPosition.y = m_CurrentPosition.y;
+			++m_CurrentCheckPositionID;
+			++m_RealCheckPositionID;
 		}
 		
-		if(m_CurrentCheckPositionID > 5) {
+		if(m_RealCheckPositionID > 5) {
 			Vector2 returnLengthVector = new Vector2(  	m_CurrentPosition.x - m_StartPosition.x, 
 					m_CurrentPosition.y - m_StartPosition.y);
 			float returnLength = returnLengthVector.len();
@@ -141,6 +154,7 @@ public class User extends Entity{
 		m_CheckPosition.x = x;
 		m_CheckPosition.y = y;
 		m_CurrentCheckPositionID = 0;
+		m_RealCheckPositionID = 0;
 		m_Active = true;
 	}
 	
@@ -202,6 +216,7 @@ public class User extends Entity{
 		m_CheckPosition.x = m_CurrentPosition.x;
 		m_CheckPosition.y = m_CurrentPosition.y;
 		m_CurrentCheckPositionID = 0;
+		m_RealCheckPositionID = 0 ;
 		
 		return action;
 	}
