@@ -6,9 +6,11 @@ import com.me.thesalmonfactory.helpers.ObjectManager;
 public class Game implements ScreenInterface {
 	
 	public ObjectManager m_ObjectManager;
+	public Level m_CurrentLevel;
 
 	public Game() {
 		m_ObjectManager = new ObjectManager();
+		m_CurrentLevel = new Level();
 	}
 	
 	@Override
@@ -30,11 +32,13 @@ public class Game implements ScreenInterface {
 	@Override
 	public void Draw(GameContext context) {
 		m_ObjectManager.Draw(context);
+		m_CurrentLevel.Draw(context);
 	}
 
 	@Override
 	public void Update(GameContext context) {
 		m_ObjectManager.Update(context);
+		m_CurrentLevel.Update(context);
 	}
 	
 	public void ProcessTouchDown(int x, int y, int userID) {
