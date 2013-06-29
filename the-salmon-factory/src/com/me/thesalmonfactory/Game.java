@@ -48,4 +48,16 @@ public class Game implements ScreenInterface {
 	public void ProcessTouchDrag(int x, int y, int userID) {
 		m_ObjectManager.ProcessTouchDrag(x, y, userID);
 	}
+	
+	public void ProcessActionLine(int x, int y) {
+		
+	}
+	
+	public void ProcessActionMultiLines(int x, int y) {
+		
+	}
+	
+	public void ProcessActionCircle(int x, int y) {
+		
+	}
 }
