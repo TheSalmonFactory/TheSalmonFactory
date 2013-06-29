@@ -5,7 +5,7 @@ import com.me.thesalmonfactory.helpers.GameContext;
 public class DOSalmon extends  DragObject {
 
 	public DOSalmon(int x, int y) {
-		super(x, y);
+		super(x, y, SALMON_ID);
 		// TODO Auto-generated constructor stub
 	}
 	

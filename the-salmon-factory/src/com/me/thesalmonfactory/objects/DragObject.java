@@ -3,9 +3,12 @@ package com.me.thesalmonfactory.objects;
 import com.me.thesalmonfactory.helpers.GameContext;
 
 public class DragObject extends  GameObject {
+	
+	protected static final int ROBOT_ID = 1;
+	protected static final int SALMON_ID = 0;
 
-	public DragObject(int x, int y) {
-		super(x, y);
+	public DragObject(int x, int y, int tilesheetID) {
+		super(x, y, tilesheetID);
 		// TODO Auto-generated constructor stub
 	}
 	

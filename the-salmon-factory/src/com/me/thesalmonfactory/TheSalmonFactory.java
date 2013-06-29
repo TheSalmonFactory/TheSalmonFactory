@@ -36,19 +36,19 @@ public class TheSalmonFactory implements ApplicationListener {
       m_Context.Camera.setToOrtho(false, 1280, 720);
       m_Context.Batch = new SpriteBatch();
       
-      //Create InputProcessors ( catch input events )
-      InputMultiplexer multiplexer = new InputMultiplexer();
-      multiplexer.addProcessor(new InputProcessorUI());
-      multiplexer.addProcessor(new InputProcessorGame());
-      Gdx.input.setInputProcessor(multiplexer);
-      
-      //State of the game
-      m_State = ApplicationState.BEGINSCREEN;
-      
       //Create Screens
       m_Game = new Game();
       m_BeginScreen = new BeginScreen();
       m_EndScreen = new EndScreen();
+      
+      //Create InputProcessors ( catch input events )
+      InputMultiplexer multiplexer = new InputMultiplexer();
+      multiplexer.addProcessor(new InputProcessorUI());
+      multiplexer.addProcessor(new InputProcessorGame(m_Game));
+      Gdx.input.setInputProcessor(multiplexer);
+      
+      //State of the game
+      m_State = ApplicationState.BEGINSCREEN;
       
       //Player game
       m_Player = new Player();

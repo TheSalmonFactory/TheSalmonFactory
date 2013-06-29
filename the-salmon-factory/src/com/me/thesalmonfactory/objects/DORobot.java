@@ -5,7 +5,7 @@ import com.me.thesalmonfactory.helpers.GameContext;
 public class DORobot extends  DragObject {
 
 	public DORobot(int x, int y) {
-		super(x, y);
+		super(x, y, ROBOT_ID);
 		// TODO Auto-generated constructor stub
 	}
 	

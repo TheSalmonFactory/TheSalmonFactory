@@ -1,37 +1,51 @@
 package com.me.thesalmonfactory;
 
 import com.me.thesalmonfactory.helpers.GameContext;
+import com.me.thesalmonfactory.helpers.ObjectManager;
 
 public class Game implements ScreenInterface {
+	
+	public ObjectManager m_ObjectManager;
 
+	public Game() {
+		m_ObjectManager = new ObjectManager();
+	}
+	
 	@Override
 	public void Start() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
+		//Clear ObjectManager when game stops!
+		m_ObjectManager.Clear();
 	}
 
 	@Override
 	public void Dispose() {
-		// TODO Auto-generated method stub
-		
+		m_ObjectManager.Dispose();
 	}
 
 	@Override
 	public void Draw(GameContext context) {
-		// TODO Auto-generated method stub
-		
+		m_ObjectManager.Draw(context);
 	}
 
 	@Override
 	public void Update(GameContext context) {
-		// TODO Auto-generated method stub
-		
+		m_ObjectManager.Update(context);
 	}
-
+	
+	public void ProcessTouchDown(int x, int y, int userID) {
+		m_ObjectManager.ProcessTouchDown(x, y, userID);
+	}
+	
+	public void ProcessTouchUp(int x, int y, int userID) {
+		m_ObjectManager.ProcessTouchUp(x, y, userID);
+	}
+	
+	public void ProcessTouchDrag(int x, int y, int userID) {
+		m_ObjectManager.ProcessTouchDrag(x, y, userID);
+	}
 }

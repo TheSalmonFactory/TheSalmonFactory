@@ -4,9 +4,12 @@ import com.me.thesalmonfactory.helpers.GameContext;
 
 public class User extends Entity{
 	
-	public User(int x, int y)
+	public int m_ID;
+	
+	public User(int x, int y, int id)
 	{
-		super(x, y);
+		super(x, y, 0, 0);
+		m_ID = id;
 	}
 	
 	@Override
