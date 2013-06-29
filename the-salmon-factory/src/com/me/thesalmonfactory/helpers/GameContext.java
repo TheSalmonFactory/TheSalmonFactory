@@ -10,7 +10,7 @@ public class GameContext {
 	public OrthographicCamera Camera;
 	public SpriteBatch Batch;
 	
-	public static final int TILE_WIDTH = 32;
+	public static int TILE_WIDTH = 32;
 	public static final int HOR_TILES = 32;
 	
 	private Texture m_Spritesheet;
@@ -18,6 +18,7 @@ public class GameContext {
 	public void Initialize()
 	{
 		m_Spritesheet = new Texture(Gdx.files.internal("img/tilesheet-32.png"));
+		TILE_WIDTH = Gdx.app.getGraphics().getWidth() / 13;
 	}
 	
 	public void Dispose()

@@ -24,6 +24,8 @@ public class TheSalmonFactory implements ApplicationListener {
    
    public GameContext m_Context;
    
+   private InputProcessorGame m_GameIP;
+   
    @Override
    public void create() {
       //Create Context
@@ -36,19 +38,20 @@ public class TheSalmonFactory implements ApplicationListener {
       m_Context.Camera.setToOrtho(false, 1280, 720);
       m_Context.Batch = new SpriteBatch();
       
-      //Create InputProcessors ( catch input events )
-      InputMultiplexer multiplexer = new InputMultiplexer();
-      multiplexer.addProcessor(new InputProcessorUI());
-      multiplexer.addProcessor(new InputProcessorGame());
-      Gdx.input.setInputProcessor(multiplexer);
-      
-      //State of the game
-      m_State = ApplicationState.BEGINSCREEN;
-      
       //Create Screens
       m_Game = new Game();
       m_BeginScreen = new BeginScreen();
       m_EndScreen = new EndScreen();
+      
+      //Create InputProcessors ( catch input events )
+      InputMultiplexer multiplexer = new InputMultiplexer();
+      multiplexer.addProcessor(new InputProcessorUI());
+      m_GameIP = new InputProcessorGame(m_Game); 
+      multiplexer.addProcessor(m_GameIP);
+      Gdx.input.setInputProcessor(multiplexer);
+      
+      //State of the game
+      m_State = ApplicationState.GAME;
       
       //Player game
       m_Player = new Player();
@@ -96,6 +99,7 @@ public class TheSalmonFactory implements ApplicationListener {
    public void Update() {
 	   switch(m_State) {
 		   case GAME:
+			   m_GameIP.Update(m_Context);
 			   m_Game.Update(m_Context);
 			   break;
 		   case BEGINSCREEN:
@@ -112,6 +116,7 @@ public class TheSalmonFactory implements ApplicationListener {
 	   switch(m_State) {
 		   case GAME:
 			   m_Game.Draw(m_Context);
+			   m_GameIP.Draw(m_Context);
 			   break;
 		   case BEGINSCREEN:
 			   m_BeginScreen.Draw(m_Context);

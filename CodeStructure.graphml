@@ -908,7 +908,7 @@
                 <y:ProxyAutoBoundsNode>
                   <y:Realizers active="0">
                     <y:GroupNode>
-                      <y:Geometry height="124.28174883142833" width="268.65194738369553" x="808.3001769292019" y="1114.3624766492137"/>
+                      <y:Geometry height="124.28174883142833" width="268.65194738369553" x="808.3001769292019" y="1206.8783870086218"/>
                       <y:Fill color="#F5F5F5" transparent="false"/>
                       <y:BorderStyle color="#800080" type="dashed" width="1.0"/>
                       <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#800080" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#FFFFFF" visible="true" width="268.65194738369553" x="0.0" y="0.0">com.me.thesalmonfactory.ui</y:NodeLabel>
@@ -935,7 +935,7 @@
                 <node id="n2::n0::n0::n0">
                   <data key="d6">
                     <y:ShapeNode>
-                      <y:Geometry height="30.0" width="97.55921183932355" x="962.7331365750531" y="1151.7389414929637"/>
+                      <y:Geometry height="30.0" width="97.55921183932355" x="962.7331365750531" y="1244.2548518523718"/>
                       <y:Fill color="#339966" transparent="false"/>
                       <y:BorderStyle color="#00FF00" type="line" width="1.0"/>
                       <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#FFFFFF" visible="true" width="74.025390625" x="11.766910607161776" y="5.6494140625">GameUI.java<y:LabelModel>
@@ -952,7 +952,7 @@
                 <node id="n2::n0::n0::n1">
                   <data key="d6">
                     <y:ShapeNode>
-                      <y:Geometry height="30.0" width="97.55921183932344" x="962.7331365750531" y="1190.5364823866107"/>
+                      <y:Geometry height="30.0" width="97.55921183932344" x="962.7331365750531" y="1283.0523927460188"/>
                       <y:Fill color="#339966" transparent="false"/>
                       <y:BorderStyle color="#00FF00" type="line" width="1.0"/>
                       <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#FFFFFF" visible="true" width="98.716796875" x="-0.5787925178383375" y="5.6494140625">ScoreScreen.java<y:LabelModel>
@@ -969,10 +969,10 @@
                 <node id="n2::n0::n0::n2">
                   <data key="d6">
                     <y:ShapeNode>
-                      <y:Geometry height="30.0" width="97.55921183932344" x="858.1733895216844" y="1151.7389414929637"/>
+                      <y:Geometry height="30.0" width="97.55921183932344" x="858.1733895216844" y="1244.2548518523718"/>
                       <y:Fill color="#339966" transparent="false"/>
                       <y:BorderStyle color="#00FF00" type="line" width="1.0"/>
-                      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#FFFFFF" visible="true" width="64.041015625" x="16.759098107161776" y="5.6494140625">Button.java<y:LabelModel>
+                      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#FFFFFF" visible="true" width="64.041015625" x="16.759098107161662" y="5.6494140625">Button.java<y:LabelModel>
                           <y:SmartNodeLabelModel distance="4.0"/>
                         </y:LabelModel>
                         <y:ModelParameter>
@@ -986,7 +986,7 @@
                 <node id="n2::n0::n0::n3">
                   <data key="d6">
                     <y:ShapeNode>
-                      <y:Geometry height="30.0" width="97.55921183932355" x="858.1733895216843" y="1190.5364823866107"/>
+                      <y:Geometry height="30.0" width="97.55921183932355" x="858.1733895216843" y="1283.0523927460188"/>
                       <y:Fill color="#339966" transparent="false"/>
                       <y:BorderStyle color="#00FF00" type="line" width="1.0"/>
                       <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#FFFFFF" visible="true" width="78.6953125" x="9.431949669661776" y="5.6494140625">TextField.java<y:LabelModel>
@@ -1008,14 +1008,14 @@
                 <y:ProxyAutoBoundsNode>
                   <y:Realizers active="0">
                     <y:GroupNode>
-                      <y:Geometry height="83.11383003476817" width="266.9921714851747" x="808.3001769292019" y="1016.9860118054637"/>
+                      <y:Geometry height="182.5418486394194" width="266.9921714851747" x="808.3001769292019" y="1016.9860118054637"/>
                       <y:Fill color="#F5F5F5" transparent="false"/>
                       <y:BorderStyle color="#800080" type="dashed" width="1.0"/>
                       <y:NodeLabel alignment="right" autoSizePolicy="node_width" backgroundColor="#800080" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="plain" hasLineColor="false" height="22.37646484375" modelName="internal" modelPosition="t" textColor="#FFFFFF" visible="true" width="266.9921714851747" x="0.0" y="0.0">com.me.thesalmonfactory.helpers</y:NodeLabel>
                       <y:Shape type="roundrectangle"/>
                       <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
                       <y:Insets bottom="15" bottomF="15.0" left="15" leftF="15.0" right="15" rightF="15.0" top="15" topF="15.0"/>
-                      <y:BorderInsets bottom="0" bottomF="0.0" left="2" leftF="1.5928175739694552" right="0" rightF="0.0" top="0" topF="0.0"/>
+                      <y:BorderInsets bottom="57" bottomF="57.313756468436395" left="2" leftF="1.5928175739694552" right="0" rightF="0.0" top="0" topF="0.0"/>
                     </y:GroupNode>
                     <y:GroupNode>
                       <y:Geometry height="50.0" width="50.0" x="926.8041224365492" y="1016.9860118054637"/>
@@ -1056,6 +1056,23 @@
                       <y:Fill color="#339966" transparent="false"/>
                       <y:BorderStyle color="#00FF00" type="line" width="1.0"/>
                       <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#FFFFFF" visible="true" width="103.380859375" x="7.289908578884706" y="5.6494140625">GameContext.java<y:LabelModel>
+                          <y:SmartNodeLabelModel distance="4.0"/>
+                        </y:LabelModel>
+                        <y:ModelParameter>
+                          <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+                        </y:ModelParameter>
+                      </y:NodeLabel>
+                      <y:Shape type="roundrectangle"/>
+                    </y:ShapeNode>
+                  </data>
+                </node>
+                <node id="n2::n0::n1::n2">
+                  <data key="d6">
+                    <y:ShapeNode>
+                      <y:Geometry height="30.0" width="125.93618604651147" x="824.8929945031714" y="1097.2141039764467"/>
+                      <y:Fill color="#339966" transparent="false"/>
+                      <y:BorderStyle color="#00FF00" type="line" width="1.0"/>
+                      <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="custom" textColor="#FFFFFF" visible="true" width="111.390625" x="7.272780523255733" y="5.6494140625">ObjectManager.java<y:LabelModel>
                           <y:SmartNodeLabelModel distance="4.0"/>
                         </y:LabelModel>
                         <y:ModelParameter>
@@ -3117,36 +3134,6 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n2::n0::e2" source="n2::n0::n2::n0" target="n2::n0::n0::n2">
-      <data key="d8"/>
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="761.4337783794753" y="828.0750442240353"/>
-            <y:Point x="760.5417327406611" y="1166.7389414929637"/>
-          </y:Path>
-          <y:LineStyle color="#FF0000" type="dashed" width="2.0"/>
-          <y:Arrows source="none" target="delta"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="n2::n0::e3" source="n2::n0::n2::n0" target="n2::n0::n0::n3">
-      <data key="d8"/>
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="761.4127298834092" y="828.0750442240353"/>
-            <y:Point x="761.4127298834092" y="1205.5364823866107"/>
-          </y:Path>
-          <y:LineStyle color="#FF0000" type="dashed" width="2.0"/>
-          <y:Arrows source="none" target="delta"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
     <edge id="n2::n0::n2::e5" source="n2::n0::n2::n6" target="n2::n0::n2::n5">
       <data key="d8"/>
       <data key="d9"/>
@@ -3159,7 +3146,7 @@
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n2::n0::e4" source="n2::n0::n2::n6" target="n2::n0::n3::n3">
+    <edge id="n2::n0::e2" source="n2::n0::n2::n6" target="n2::n0::n3::n3">
       <data key="d8"/>
       <data key="d9"/>
       <data key="d10">
@@ -3168,6 +3155,38 @@
             <y:Point x="841.6020788319502" y="1004.3171084306515"/>
             <y:Point x="775.4485230940686" y="1004.3171084306515"/>
             <y:Point x="775.4485230940686" y="1134.7319416973605"/>
+          </y:Path>
+          <y:LineStyle color="#FF0000" type="dashed" width="2.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="n2::n0::e3" source="n2::n0::n2::n4" target="n2::n0::n0::n2">
+      <data key="d8"/>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="995.3124887949264" y="795.7874399023343"/>
+            <y:Point x="764.451809107224" y="795.7874399023343"/>
+            <y:Point x="764.451809107224" y="1259.2548518523718"/>
+          </y:Path>
+          <y:LineStyle color="#FF0000" type="dashed" width="2.0"/>
+          <y:Arrows source="none" target="delta"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="n2::n0::e4" source="n2::n0::n2::n4" target="n2::n0::n0::n3">
+      <data key="d8"/>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="995.3124887949264" y="794.9566576613195"/>
+            <y:Point x="763.6210268662093" y="794.9566576613195"/>
+            <y:Point x="763.6210268662093" y="1298.0523927460188"/>
           </y:Path>
           <y:LineStyle color="#FF0000" type="dashed" width="2.0"/>
           <y:Arrows source="none" target="delta"/>

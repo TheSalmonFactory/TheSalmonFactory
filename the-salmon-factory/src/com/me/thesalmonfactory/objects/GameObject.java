@@ -4,9 +4,12 @@ import com.me.thesalmonfactory.helpers.GameContext;
 
 public class GameObject extends  Entity {
 
-	public GameObject(int x, int y) {
-		super(x, y);
+	protected int m_TileSheetID;
+	
+	public GameObject(int x, int y, int tilesheetID) {
+		super(x, y, GameContext.TILE_WIDTH, GameContext.TILE_WIDTH);
 		// TODO Auto-generated constructor stub
+		m_TileSheetID = tilesheetID;
 	}
 	
 	@Override
