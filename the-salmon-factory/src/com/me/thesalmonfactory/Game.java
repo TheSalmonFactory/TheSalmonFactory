@@ -56,15 +56,15 @@ public class Game implements ScreenInterface {
 		m_ObjectManager.ProcessTouchDrag(x, y, userID);
 	}
 	
-	public void ProcessActionLine(int x, int y) {
+	public void ProcessActionLine(int x, int y, int id) {
 		
 	}
 	
-	public void ProcessActionMultiLines(int x, int y) {
+	public void ProcessActionMultiLines(int x, int y, int id) {
 		
 	}
 	
-	public void ProcessActionCircle(int x, int y) {
+	public void ProcessActionCircle(int x, int y, int id) {
 		if(x < 50 && y < 50) {
 			CreateNewSalmon(x,y);
 		} 

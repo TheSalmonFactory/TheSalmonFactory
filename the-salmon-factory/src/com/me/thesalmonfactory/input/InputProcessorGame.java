@@ -100,15 +100,15 @@ public class InputProcessorGame implements InputProcessor {
    public void CheckForAction(int id, User.InputAction action) {
 	   switch(action) {
 		  case LINE:
-			  m_Game.ProcessActionLine((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y);
+			  m_Game.ProcessActionLine((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
 			  Gdx.app.log("Record", "Line Recorded!");
 			  break;
 		  case MULTI_LINES:
-			  m_Game.ProcessActionMultiLines((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y);
+			  m_Game.ProcessActionMultiLines((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
 			  Gdx.app.log("Record", "MultiLines Recorded!");
 			  break;
 		  case CIRCLE:
-			  m_Game.ProcessActionCircle((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y);
+			  m_Game.ProcessActionCircle((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
 			  Gdx.app.log("Record", "Circle Recorded!");
 			  break;
 		  default:
