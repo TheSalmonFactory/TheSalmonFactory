@@ -1,18 +1,15 @@
 package com.me.thesalmonfactory;
 
 //import java.io.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 
 public class LevelParser {
@@ -52,79 +49,49 @@ public class LevelParser {
 	public LevelParser(int levelID)
 	{
 		mapMatrix = new int[matrixWidth][matrixHeight][2]; 
-		
-		XmlReader xml = new XmlReader();
-		
-		//In Project: Gdx.files.internal("levels/levels0.xml")
+
 		FileHandle levelFile = Gdx.files.internal("levels/level" + levelID + ".xml");
-		String fileContent = levelFile.readString();
-		//File file = new File(fileContent);
-		
+		XmlReader xml = new XmlReader();
+		XmlReader.Element xml_element = null;
 		try {
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(fileContent);
-		doc.getDocumentElement().normalize();
-
-
-		NodeList layerNodes = doc.getElementsByTagName("layer");
-	
-		int nodesLength = layerNodes.getLength();
-		//System.out.println("Layers found : " + nodesLength);
+			xml_element = xml.parse(levelFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		for (int layerCount = 0; layerCount < nodesLength; layerCount++) {
-			Node currentNode = layerNodes.item(layerCount);
-			//System.out.println("Layer found : " + currentNode.getNodeName());
-
-			Node tempNode = currentNode.getFirstChild();
-			while(tempNode.getNodeName() != "data")
-				tempNode = tempNode.getNextSibling();
+		if(xml_element != null) {
+			Array<com.badlogic.gdx.utils.XmlReader.Element> elements = xml_element.getChildrenByName("layer");
 			
-			//System.out.println("Layer child : " + tempNode.getNodeName());
+			int nodesLength = elements.size;
 			
-			NodeList tileNodes = tempNode.getChildNodes();
-			
-
-			int tileCountX = 0, tileCountY = 0;
-			//System.out.println("Children : " + tileNodes.getLength());
-			
-			
-			
-			for (int i = 0; i < tileNodes.getLength(); i+=2) {
-				Node currentTile = tileNodes.item(i);
+			for (int layerCount = 0; layerCount < nodesLength; layerCount++) {
+				com.badlogic.gdx.utils.XmlReader.Element currentNode = elements.get(layerCount);
+				Array<com.badlogic.gdx.utils.XmlReader.Element> tiles = currentNode.getChild(0).getChildrenByName("tile");
 				
-				while(currentTile != null && currentTile.getNodeName() != "tile")
-				{
-					currentTile = currentTile.getNextSibling();
-				}
+				int tileCountX = 0, tileCountY = 0;
+				
+				int tileSize = tiles.size;
+				for (int i = 0; i < tileSize; i++) {
+					com.badlogic.gdx.utils.XmlReader.Element currentTile = tiles.get(i);
 					
-				
-				//System.out.println(tileCountX + ", " + tileCountY + " Tile found : " + currentTile.getNodeName() + " : " + ((Element) currentTile).getAttribute("gid"));
-
-				Element element = (Element) currentTile;
-				int tempInt = 0;
-				tempInt = Integer.parseInt(element.getAttribute("gid")) - 1;
-				mapMatrix[tileCountX][tileCountY][layerCount] = tempInt;
-				
-				if (tileCountX < matrixWidth - 1)
-					tileCountX++;
-				else
-				{
-	   				tileCountX = 0;
-	   				tileCountY++;
-	   			}
-				if(tileCountY == 8)
-					break;
-				      	
-	  		}
-			//System.out.println("Layer finished !");
-	    }
-
-		//System.out.println("Finished parsing, displaying the matrix.");
-		//displayMatrix();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			}
+					int tempInt = 0;
+					tempInt = Integer.parseInt(currentTile.getAttribute("gid")) - 1;
+					mapMatrix[tileCountX][tileCountY][layerCount] = tempInt;
+					
+					if (tileCountX < matrixWidth - 1)
+						tileCountX++;
+					else
+					{
+		   				tileCountX = 0;
+		   				tileCountY++;
+		   			}
+					if(tileCountY == 8)
+						break;
+					      	
+		  		}
+		    }
+		}
 	}
 			
 

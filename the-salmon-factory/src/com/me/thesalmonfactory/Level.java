@@ -20,10 +20,10 @@ public class Level {
 		{
 			for(int j = 0 ; j < LevelParser.matrixWidth ; j++)
 			{
-				Gdx.app.log("Test", "ID == " + currentLvl.mapMatrix[j][i][0]);
-				context.DrawTile((int)(j * GameContext.TILE_WIDTH), 
-				(int)(i * GameContext.TILE_WIDTH), currentLvl.mapMatrix[j][i][0]);
-				//context.DrawTile(j, i, currentLvl.mapMatrix[j][i][1]);
+				context.DrawTile((int)(j * GameContext.TILE_WIDTH), (int)(i * GameContext.TILE_WIDTH), 
+				currentLvl.mapMatrix[j][i][0]);
+				context.DrawTile((int)(j * GameContext.TILE_WIDTH), (int)(i * GameContext.TILE_WIDTH), 
+				currentLvl.mapMatrix[j][i][1]);
 			}
 		}
 	}

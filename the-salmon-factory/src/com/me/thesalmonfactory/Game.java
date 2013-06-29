@@ -1,7 +1,10 @@
 package com.me.thesalmonfactory;
 
+import com.badlogic.gdx.Gdx;
 import com.me.thesalmonfactory.helpers.GameContext;
 import com.me.thesalmonfactory.helpers.ObjectManager;
+import com.me.thesalmonfactory.objects.DORobot;
+import com.me.thesalmonfactory.objects.DOSalmon;
 
 public class Game implements ScreenInterface {
 	
@@ -62,6 +65,22 @@ public class Game implements ScreenInterface {
 	}
 	
 	public void ProcessActionCircle(int x, int y) {
-		
+		if(x < 50 && y < 50) {
+			CreateNewSalmon(x,y);
+		} 
+		else if(x > Gdx.app.getGraphics().getWidth() - 50 &&
+			y > Gdx.app.getGraphics().getHeight() - 50) {
+			CreateNewRobot(x,y);
+		}
+	}
+	
+	public void CreateNewSalmon(int x, int y) {
+		DOSalmon salmon = new DOSalmon(x + 100, y + 100);
+		m_ObjectManager.AddObject(salmon);
+	}
+	
+	public void CreateNewRobot(int x, int y) {
+		DORobot robot = new DORobot(x - 100, y - 100);
+		m_ObjectManager.AddObject(robot);
 	}
 }

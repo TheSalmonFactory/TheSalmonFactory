@@ -25,6 +25,7 @@ public class DOSalmon extends  DragObject {
 	public void Draw(GameContext context) {
 		// TODO Auto-generated method stub
 		super.Draw(context);
+		context.DrawTile((int)m_Position.x, (int)m_Position.y, SALMON_ID);
 	}
 
 	@Override
