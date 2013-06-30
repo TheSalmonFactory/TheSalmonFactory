@@ -143,6 +143,6 @@ public class InputProcessorGame implements InputProcessor {
 			   return;
 		   }
 	   }
-	   m_Feedbacks.add(new CircleFeedback(x,y,1.0f,id));
+	   m_Feedbacks.add(new CircleFeedback(x,y,2.0f,id));
    }
 }
