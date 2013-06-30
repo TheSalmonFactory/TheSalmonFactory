@@ -11,8 +11,8 @@ public class Level {
 	Texture m_BorderTexture;
 	Texture m_BorderColRect;
 	
-	public Level() {
-		currentLvl = new LevelParser(0);
+	public Level(int level) {
+		currentLvl = new LevelParser(level);
 		m_BorderTexture = new Texture(Gdx.files.internal("img/BorderRect.png"));
 		m_BorderColRect = new Texture(Gdx.files.internal("img/BorderRectCol.png"));
 	}
@@ -20,6 +20,7 @@ public class Level {
 	public void Dispose() {
 		// TODO dispose stuff
 		m_BorderTexture.dispose();
+		currentLvl.Dispose();
 	}
 
 	public void Draw(GameContext context) {
@@ -36,9 +37,9 @@ public class Level {
 			}
 		}
 		
-		/*for(Vector2 vec : LevelParser.COMMON_BLOCK_LIST) { 
+		/*for(Vector2 vec : LevelParser.WATER_LIST) { 
 			context.Batch.draw(m_BorderTexture, vec.x, vec.y, GameContext.TILE_WIDTH, GameContext.TILE_WIDTH, 0, 0, 32, 32, false, false);
-		}*/
+		} */
 		
 		/*for(Vector2 vec : LevelParser.FISH_ALLOW_LIST) { 
 			context.Batch.draw(m_BorderColRect, vec.x, vec.y, GameContext.TILE_WIDTH, GameContext.TILE_WIDTH, 0, 0, 32, 32, false, false);
@@ -53,11 +54,20 @@ public class Level {
 		Vector2 validation = new Vector2(0,0);
 		float widthCheck = GameContext.TILE_WIDTH * 0.5f;
 		
+		Vector2 finishCheckLength = new Vector2(LevelParser.FINNISH.x - pos.x, LevelParser.FINNISH.y - pos.y);
+		if(finishCheckLength.len() < GameContext.TILE_WIDTH) {
+			Game.LoadNewLevel();
+		}
+		
+		int fishCounter = 0;
 		for(DragObject obj : Game.m_ObjectManager.m_GameObjects) {
 			if(obj.m_TileSheetID == 0) {
 				Vector2 lengthVec = new Vector2(obj.m_Position.x - pos.x, obj.m_Position.y - pos.y);
 				if(lengthVec.len() < GameContext.TILE_WIDTH) {
-					return validation;
+					++fishCounter;
+					if(fishCounter == 2) {
+						return validation;
+					}
 				}
 			}
 		}
@@ -67,7 +77,6 @@ public class Level {
 			Vector2 testVecX = new Vector2(vec.x - pos.x, 0);
 			if(( validation.y == 0 || validation.x == 0)&& testVecX.len() < widthCheck && testVecY.len() < widthCheck) {
 				if(testVecY.len() > widthCheck / 2) {
-					Gdx.app.log("p.y < v.y", "p.y == " + pos.y + " && v.y == " + vec.y + " && TW = " + GameContext.TILE_WIDTH);
 					if(pos.y > vec.y) { 
 						validation.y = pos.y - vec.y - GameContext.TILE_WIDTH;
 					}
@@ -90,13 +99,12 @@ public class Level {
 	
 	public static Vector2 ValidateSalmonPosition(Vector2 pos) { 
 		Vector2 validation = new Vector2(0,0);
-		float widthCheck = GameContext.TILE_WIDTH * 0.4f;
+		float widthCheck = GameContext.TILE_WIDTH * 0.5f;
 		for(Vector2 vec : LevelParser.FISH_ALLOW_LIST) {
 			Vector2 testVecY = new Vector2(0, vec.y - pos.y);
 			Vector2 testVecX = new Vector2(vec.x - pos.x, 0);
 			if(( validation.y == 0 || validation.x == 0)&& testVecX.len() < widthCheck && testVecY.len() < widthCheck) {
 				if(testVecY.len() > widthCheck / 2) {
-					Gdx.app.log("p.y < v.y", "p.y == " + pos.y + " && v.y == " + vec.y + " && TW = " + GameContext.TILE_WIDTH);
 					if(pos.y > vec.y) { 
 						validation.y = pos.y - vec.y - GameContext.TILE_WIDTH;
 					}
@@ -127,7 +135,6 @@ public class Level {
 			}
 		}
 		if(validation.y == 0) {
-			Gdx.app.log("p.y < v.y", "pos.y == " + pos.y);
 			if(pos.y < GameContext.m_OffsetY) {
 				validation.y -= GameContext.m_OffsetY - pos.y; 
 			}

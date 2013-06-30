@@ -2,6 +2,8 @@ package com.me.thesalmonfactory.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.badlogic.gdx.Gdx;
 import com.me.thesalmonfactory.objects.*;
 import com.me.thesalmonfactory.objects.Entity.EntityState;
 
@@ -18,19 +20,31 @@ public class ObjectManager {
 	}
 
 	public void Draw(GameContext context) {
-		for (Entity entity : m_GameObjects) {
-			entity.Draw(context);
+		//Draw Fishes
+		for (DragObject entity : m_GameObjects) {
+			if(entity.m_State == EntityState.DEAD) {
+				m_GameObjects.remove(entity);
+				break;
+			}
+			if(entity.m_TileSheetID == 0) {
+				entity.Draw(context);
+			}
+		}
+		//Draw Robots
+		for (DragObject entity : m_GameObjects) {
+			if(entity.m_State == EntityState.DEAD) {
+				m_GameObjects.remove(entity);
+				break;
+			}
+			if(entity.m_TileSheetID == 1) {
+				entity.Draw(context);
+			}
 		}
 	}
 
 	public void Update(GameContext context) {
-		for (Entity entity : m_GameObjects) {
+		for (DragObject entity : m_GameObjects) {
 			entity.Update(context);
-			if(entity.m_State == EntityState.DEAD) {
-				entity.Dispose();
-				m_GameObjects.remove(entity);
-				break;
-			}
 		}
 	}
 	
@@ -65,10 +79,23 @@ public class ObjectManager {
 	}
 	
 	public void DragObject(User user) {
+		//Gdx.app.log("drag?!", "looking for sth to drag...");
 		for (DragObject entity : m_GameObjects) {
-			if(entity.Drag(user)) {
-				return;
+			if(entity.m_TileSheetID == 1) {
+				if(entity.Drag(user)) {
+					return;
+				}
 			}
+			//entity.Drag(user);
+		}
+		
+		for (DragObject entity : m_GameObjects) {
+			if(entity.m_TileSheetID == 0) {
+				if(entity.Drag(user)) {
+					return;
+				}
+			}
+			//entity.Drag(user);
 		}
 	}
 	

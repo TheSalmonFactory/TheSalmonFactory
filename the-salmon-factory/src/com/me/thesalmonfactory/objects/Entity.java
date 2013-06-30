@@ -40,6 +40,7 @@ public class Entity implements EntityInterface{
 	@Override
 	public void Dispose() {
 		// TODO Auto-generated method stub
+		m_State = EntityState.DEAD;
 	}
 
 	@Override

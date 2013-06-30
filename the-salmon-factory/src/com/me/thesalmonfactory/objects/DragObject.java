@@ -15,7 +15,7 @@ public class DragObject extends  GameObject {
 	protected float m_Rotation;
 	protected float m_TargetRotation;
 	
-	protected static final float DEFAULT_DEAD_TIME = 5;
+	protected static final float DEFAULT_DEAD_TIME = 12;
 	
 	protected static final float DEFAULT_SPEED = 1750.0f;
 	
@@ -138,26 +138,26 @@ public class DragObject extends  GameObject {
 		
 		m_LiveTimer += context.GameTime;
 		if(m_LiveTimer > m_DeadTiming) {
-			m_State = EntityState.DEAD;
+			Dispose();
 		}
 	}
 	
 	public boolean Drag(User user) {
-		if(m_Target == null && 
-				IsPositionInRange((int)(user.m_CurrentPosition.x) + GameContext.m_OffsetX, 
-						Gdx.app.getGraphics().getHeight() - (int)user.m_CurrentPosition.y - GameContext.m_OffsetY, 3.0f)) {
+		if(IsPositionInRange((int)(user.m_CurrentPosition.x) + GameContext.m_OffsetX, 
+						(int)user.m_CurrentPosition.y, 2.0f)) {
 			m_TargetPos.x = m_Position.x;
 			m_TargetPos.y = m_Position.y;
 			m_OldPosition.x = m_Position.x;
 			m_OldPosition.y = m_Position.y;
 			m_Target = user;
+			//Gdx.app.log("Touch", "touching something to drag!!!");
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean UnsetUser(int userID) {
-		if( m_Target!= null && userID == m_Target.m_ID) {
+		if(m_Target != null && userID == m_Target.m_ID) {
 			m_Target = null;
 			return true;
 		}

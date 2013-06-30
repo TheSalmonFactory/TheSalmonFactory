@@ -50,7 +50,7 @@ public class InputProcessorGame implements InputProcessor {
 	  //Gdx.app.log("TouchDown", "x == " + x + " && y == " + y + " && pointer == " + pointer + " && button == " + button);
 	  if(pointer < MAX_USERS && pointer > -1) {
 		  m_Users[pointer].StartRecord(x, y);
-		  m_Game.m_ObjectManager.DragObject(m_Users[pointer]);
+		  Game.m_ObjectManager.DragObject(m_Users[pointer]);
 	  }
       return false;
    }
@@ -62,7 +62,7 @@ public class InputProcessorGame implements InputProcessor {
 	  //Gdx.app.log("TouchUp", "x == " + x + " && y == " + y + " && pointer == " + pointer + " && button == " + button);
 	  if(pointer < MAX_USERS && pointer > -1) {
 		  CheckForAction(pointer, m_Users[pointer].StopRecord(x, y));
-		  m_Game.m_ObjectManager.ResetDragObject(pointer);
+		  Game.m_ObjectManager.ResetDragObject(pointer);
 	  }
       return false;
    }

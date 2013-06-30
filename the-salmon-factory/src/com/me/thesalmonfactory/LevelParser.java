@@ -27,8 +27,13 @@ public class LevelParser {
 	public static List<Vector2> WATER_LIST = null;
 	public static List<Vector2> FISH_ALLOW_LIST = null;
 	public static List<Vector2> COMMON_BLOCK_LIST = null;
+	public static List<Vector2> TORNADO_LIST = null;
+	public static List<Vector2> TURRET_LIST = null;
+	public static List<Vector2> BUTTON_LIST = null;
 	
-	public void displayMatrix(){
+	public static Vector2 FINNISH = null;
+	
+	public void displayMatrix() {
 		for(int i = 0 ; i < matrixHeight ; i++)
 		{
 			String temp = new String("");
@@ -80,6 +85,22 @@ public class LevelParser {
 			COMMON_BLOCK_LIST = new ArrayList<Vector2>();
 		}
 
+		if(FINNISH == null) {
+			FINNISH = new Vector2(0,0);
+		}
+		
+		if(TORNADO_LIST == null) {
+			TORNADO_LIST = new ArrayList<Vector2>();
+		}
+		
+		if(TURRET_LIST == null) {
+			TURRET_LIST = new ArrayList<Vector2>();
+		}
+		
+		if(BUTTON_LIST == null) {
+			BUTTON_LIST = new ArrayList<Vector2>();
+		}
+		
 		FileHandle levelFile = Gdx.files.internal("levels/level" + levelID + ".xml");
 		XmlReader xml = new XmlReader();
 		XmlReader.Element xml_element = null;
@@ -150,11 +171,23 @@ public class LevelParser {
 		if(id / 32 < 30 && (id % 32 == 8 || id%32 == 11 || id%32 == 16 || id%32 == 17)) {
 			COMMON_BLOCK_LIST.add(pos);
 		}
+		else if(id / 32 < 1 && (id % 32 == 4)) {
+			FINNISH = pos;
+		}
+		else if(id / 32 < 1 && (id % 32 == 14)) {
+			BUTTON_LIST.add(pos);
+		}
+		else if(id / 32 < 1 && (id % 32 == 15)) {
+			TURRET_LIST.add(pos);
+		}
+		else if(id / 32 < 1 && (id % 32 == 7)) {
+			TORNADO_LIST.add(pos);
+		}
 		else if(id / 32 < 30 && (id % 32 == 5 || id % 32 == 6 || id % 32 == 7)) {
 			
 			WATER_LIST.add(pos);
 		}
-		else if((id % 32 == 9 && id / 32 < 1 ) || 
+		else if((!(id % 32 == 9 && id / 32 < 1 )) && 
 				(id > -1 && id%32 != 2 && id%32 != 3 && (
 				(id%32 == 0 && id/32 < 8) || (id%32 == 1 && id/32 < 5) || 
 				(id%32 == 4 && id/32 < 1) || (id%32 == 5 && id/32 < 2) ||
@@ -171,5 +204,10 @@ public class LevelParser {
 	
 	public void Dispose() {
 		WATER_LIST.clear();
+		FISH_ALLOW_LIST.clear();
+		COMMON_BLOCK_LIST.clear();
+		TORNADO_LIST.clear();
+		TURRET_LIST.clear();
+		BUTTON_LIST.clear();
 	}
 }

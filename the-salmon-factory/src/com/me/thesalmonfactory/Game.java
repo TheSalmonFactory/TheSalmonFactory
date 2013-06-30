@@ -3,6 +3,7 @@ package com.me.thesalmonfactory;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.me.thesalmonfactory.helpers.GameContext;
 import com.me.thesalmonfactory.helpers.ObjectManager;
@@ -12,18 +13,24 @@ import com.me.thesalmonfactory.objects.DOSalmon;
 public class Game implements ScreenInterface {
 	
 	public static ObjectManager m_ObjectManager;
-	public Level m_CurrentLevel;
+	public static Level m_CurrentLevel;
 	private Music m_Music; 
 	private Sound m_RotationSound;
 	private int m_RotationDelayTime;
+	
+	private Texture m_LevelNotFinishedMessage;
+	
+	public static int level = 0;
 
 	public Game() {
 		m_ObjectManager = new ObjectManager();
-		m_CurrentLevel = new Level();
+		m_CurrentLevel = new Level(level);
 		m_Music = Gdx.audio.newMusic(Gdx.files.internal("audio/song1game.mp3"));
 		m_Music.setLooping(true);
 		m_RotationSound =  Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Rotation.mp3"));
 		m_RotationDelayTime = 0;
+		
+		m_LevelNotFinishedMessage = new Texture(Gdx.files.internal("img/LevelNotFinishedLevel.png"));
 	}
 	
 	@Override
@@ -42,12 +49,16 @@ public class Game implements ScreenInterface {
 	@Override
 	public void Dispose() {
 		m_ObjectManager.Dispose();
+		m_LevelNotFinishedMessage.dispose();
 	}
 
 	@Override
 	public void Draw(GameContext context) {
 		m_CurrentLevel.Draw(context);
 		m_ObjectManager.Draw(context);
+		if(level > 0) {
+			context.Batch.draw(m_LevelNotFinishedMessage, 100, -350);
+		}
 	}
 
 	@Override
@@ -104,5 +115,12 @@ public class Game implements ScreenInterface {
 	public void CreateNewRobot(int x, int y) {
 		DORobot robot = new DORobot(x + GameContext.m_OffsetX, y);
 		m_ObjectManager.AddObject(robot);
+	}
+	
+	public static void LoadNewLevel() {
+		++level;
+		m_ObjectManager.Clear();
+		m_CurrentLevel.Dispose();
+		m_CurrentLevel = new Level(level);
 	}
 }
