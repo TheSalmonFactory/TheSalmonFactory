@@ -26,7 +26,7 @@ public class CircleFeedback {
 		m_DelayTime = 0;
 		
 		if(m_Texture == null) { 
-			m_Texture = new Texture(Gdx.files.internal("Circle.png"));
+			m_Texture = new Texture(Gdx.files.internal("img/Circle.png"));
 		}
 	}
 
