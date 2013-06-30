@@ -11,7 +11,7 @@ import com.me.thesalmonfactory.objects.DOSalmon;
 
 public class Game implements ScreenInterface {
 	
-	public ObjectManager m_ObjectManager;
+	public static ObjectManager m_ObjectManager;
 	public Level m_CurrentLevel;
 	private Music m_Music; 
 	private Sound m_RotationSound;

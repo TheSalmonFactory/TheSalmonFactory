@@ -4,7 +4,7 @@ import com.me.thesalmonfactory.helpers.GameContext;
 
 public class GameObject extends  Entity {
 
-	protected int m_TileSheetID;
+	public int m_TileSheetID;
 	
 	public GameObject(int x, int y, int tilesheetID) {
 		super(x, y, GameContext.TILE_WIDTH, GameContext.TILE_WIDTH);

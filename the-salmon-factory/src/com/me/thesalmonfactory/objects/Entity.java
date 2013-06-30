@@ -9,7 +9,7 @@ public class Entity implements EntityInterface{
 	    TOUCH_DRAG, TOUCH_UP
 	}
    
-	protected Vector2 m_Position;
+	public Vector2 m_Position;
 	protected Vector2 m_Dimensions;
 	protected User m_User;
 	
