@@ -54,7 +54,7 @@ public class GameContext {
 			//	u, v, u + uvExtra, v + uvExtra, false, true);
 		//Batch.draw(m_Spritesheet, m_OffsetX + x, m_OffsetY + y, TILE_WIDTH, TILE_WIDTH, 
 		//		(tileID % HOR_TILES) * 32, (tileID / HOR_TILES) * 32, 32, 32, false, false);
-		Batch.draw(m_Spritesheet, m_OffsetX + x, m_OffsetY + y, 
+		Batch.draw(m_Spritesheet, x, y, 
 				TILE_WIDTH / 2, TILE_WIDTH / 2, TILE_WIDTH, TILE_WIDTH, 1.0f, 1.0f, 
 				rotation, (tileID % HOR_TILES) * 32, (tileID / HOR_TILES) * 32, 32, 32, false, false);
 	}

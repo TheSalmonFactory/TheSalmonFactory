@@ -87,14 +87,12 @@ public class Game implements ScreenInterface {
 	}
 	
 	public void CreateNewSalmon(int x, int y) {
-		DOSalmon salmon = new DOSalmon(x, y);
+		DOSalmon salmon = new DOSalmon(x + GameContext.m_OffsetX, y);
 		m_ObjectManager.AddObject(salmon);
-		Gdx.app.log("SALMON", "SPAWN @ " + x + "," + y);
 	}
 	
 	public void CreateNewRobot(int x, int y) {
-		DORobot robot = new DORobot(x, y);
+		DORobot robot = new DORobot(x + GameContext.m_OffsetX, y);
 		m_ObjectManager.AddObject(robot);
-		Gdx.app.log("ROBOT", "SPAWN @ " + x + "," + y);
 	}
 }

@@ -135,7 +135,10 @@ public class LevelParser {
 				break;
 		}
 		if(id / 32 < 28 && (id % 32 == 5 || id % 32 == 6 || id % 32 == 7)) {
-			WATER_LIST.add(GameContext.GetPosition(x, y));
+			Vector2 pos = GameContext.GetPosition(x, y);
+			pos.x += GameContext.m_OffsetX;
+			pos.y = Gdx.app.getGraphics().getHeight() - pos.y - GameContext.TILE_WIDTH * 1.55f;
+			WATER_LIST.add(pos);
 		}
 	}
 	

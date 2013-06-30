@@ -106,8 +106,8 @@ public class DragObject extends  GameObject {
 				m_GoingHor = false;
 			}
 			m_RealDirection.x = m_Direction.x;
-			m_Position.x = m_Target.m_CurrentPosition.x - GameContext.TILE_WIDTH;
-			m_Position.y = m_Target.m_CurrentPosition.y - GameContext.TILE_WIDTH;
+			m_Position.x = m_Target.m_CurrentPosition.x - GameContext.TILE_WIDTH / 2 ;
+			m_Position.y = m_Target.m_CurrentPosition.y - GameContext.TILE_WIDTH / 2 ;
 			
 			if(m_Rotation < m_TargetRotation) {
 				m_Rotation += 4000 * context.GameTime;

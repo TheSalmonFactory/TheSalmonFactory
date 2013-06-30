@@ -32,7 +32,7 @@ public class Level {
 		}
 		
 		for(Vector2 vec : LevelParser.WATER_LIST) { 
-			context.Batch.draw(m_BorderTexture, vec.x, vec.y);
+			context.Batch.draw(m_BorderTexture, vec.x, vec.y, GameContext.TILE_WIDTH, GameContext.TILE_WIDTH, 0, 0, 32, 32, false, false);
 		}
 	}
 
