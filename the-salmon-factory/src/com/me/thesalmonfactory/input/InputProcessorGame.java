@@ -127,6 +127,7 @@ public class InputProcessorGame implements InputProcessor {
 		  case CIRCLE:
 			  m_Game.ProcessActionCircle((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
 			  //Gdx.app.log("Record", "Circle Recorded!");
+			  UpdateFeedbacks((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
 			  break;
 		  default:
 			  // else ... DO NOTHING!
@@ -140,6 +141,6 @@ public class InputProcessorGame implements InputProcessor {
 			   return;
 		   }
 	   }
-	   m_Feedbacks.add(new CircleFeedback(x,y,5.0f,id));
+	   m_Feedbacks.add(new CircleFeedback(x,y,1.0f,id));
    }
 }

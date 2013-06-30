@@ -173,7 +173,7 @@ public class User extends Entity{
 		if(m_CurrentCheckPositionID > 3) {
 			float previousLength = 0;
 			float currentLength = 0;
-			float checkLength = GameContext.TILE_WIDTH * 0.5f;
+			float checkLength = GameContext.TILE_WIDTH * 0.15f;
 			boolean checkCircle = true;
 			for(int i = 0 ; i < m_CurrentCheckPositionID && i < MAX_CHECK_POSITIONS ; i++) {
 				Vector2 checkLengthVec = new Vector2(m_CheckPositionArray[i].x - m_AveragePosition.x, 
