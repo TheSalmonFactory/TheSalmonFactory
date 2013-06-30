@@ -10,13 +10,22 @@ public class DOSalmon extends  DragObject {
 	
 	private Sound m_MoveSound;
 	private boolean m_MoveSoundPlaying;
+	
+	private static Sound SALMON_POP_SOUND;
+	private static Sound SALMON_PUSH_SOUND;
 
 	public DOSalmon(int x, int y) {
 		super(x, y, SALMON_ID);
 		// TODO Auto-generated constructor stub
 		
-		m_MoveSound = Gdx.audio.newSound(Gdx.files.internal("audio/SFX_SalmonMoves.wav"));
+		m_MoveSound = Gdx.audio.newSound(Gdx.files.internal("audio/SFX_SalmonMoves.mp3"));
+		if(SALMON_POP_SOUND == null) {
+			SALMON_POP_SOUND = Gdx.audio.newSound(Gdx.files.internal("audio/SFX_SalmonPop.mp3"));
+			SALMON_PUSH_SOUND = Gdx.audio.newSound(Gdx.files.internal("audio/SFX_SalmonDies.mp3"));
+		}
 		m_MoveSoundPlaying = false;
+		
+		SALMON_POP_SOUND.play();
 	}
 	
 	@Override
@@ -32,6 +41,8 @@ public class DOSalmon extends  DragObject {
 		m_MoveSound.stop();
 		m_MoveSoundPlaying = false;
 		m_MoveSound.dispose();
+		
+		SALMON_PUSH_SOUND.play();
 	}
 
 	@Override

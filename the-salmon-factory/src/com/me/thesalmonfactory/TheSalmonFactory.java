@@ -72,7 +72,7 @@ public class TheSalmonFactory implements ApplicationListener {
       m_ExitButtonPos = new Vector2(Gdx.app.getGraphics().getWidth() - GameContext.TILE_WIDTH, 
 					   Gdx.app.getGraphics().getHeight() - GameContext.TILE_WIDTH - GameContext.m_OffsetY);
       
-      m_ButtonSound = Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Button.wav"));
+      m_ButtonSound = Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Button.mp3"));
    }
 
    @Override
