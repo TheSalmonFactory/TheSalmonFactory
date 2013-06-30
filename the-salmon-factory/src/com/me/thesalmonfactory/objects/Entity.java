@@ -96,8 +96,10 @@ public class Entity implements EntityInterface{
 	}
 	
 	public boolean IsPositionInRange(int x, int y) {
-		return 	m_Position.x < x && m_Position.x + m_Dimensions.x > x &&
-				m_Position.y < x && m_Position.y + m_Dimensions.y > y;
+		//Vector2 pos = GameContext.GetCorrectPosition(new Vector2(x, y));
+		Vector2 pos = new Vector2(x, y);
+		return 	m_Position.x < pos.x && m_Position.x + m_Dimensions.x > pos.x &&
+				m_Position.y < pos.y && m_Position.y + m_Dimensions.y > pos.y;
 	}
 	
 	public boolean ExcecuteTouchAction(int x, int y, int id) {

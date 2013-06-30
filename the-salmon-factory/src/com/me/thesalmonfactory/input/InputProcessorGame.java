@@ -50,6 +50,7 @@ public class InputProcessorGame implements InputProcessor {
 	  //Gdx.app.log("TouchDown", "x == " + x + " && y == " + y + " && pointer == " + pointer + " && button == " + button);
 	  if(pointer < MAX_USERS && pointer > -1) {
 		  m_Users[pointer].StartRecord(x, y);
+		  m_Game.m_ObjectManager.DragObject(m_Users[pointer]);
 	  }
       return false;
    }
@@ -61,6 +62,7 @@ public class InputProcessorGame implements InputProcessor {
 	  //Gdx.app.log("TouchUp", "x == " + x + " && y == " + y + " && pointer == " + pointer + " && button == " + button);
 	  if(pointer < MAX_USERS && pointer > -1) {
 		  CheckForAction(pointer, m_Users[pointer].StopRecord(x, y));
+		  m_Game.m_ObjectManager.ResetDragObject(pointer);
 	  }
       return false;
    }
@@ -116,15 +118,15 @@ public class InputProcessorGame implements InputProcessor {
 	   switch(action) {
 		  case LINE:
 			  m_Game.ProcessActionLine((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
-			  Gdx.app.log("Record", "Line Recorded!");
+			 // Gdx.app.log("Record", "Line Recorded!");
 			  break;
 		  case MULTI_LINES:
 			  m_Game.ProcessActionMultiLines((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
-			  Gdx.app.log("Record", "MultiLines Recorded!");
+			  //Gdx.app.log("Record", "MultiLines Recorded!");
 			  break;
 		  case CIRCLE:
 			  m_Game.ProcessActionCircle((int)m_Users[id].m_AveragePosition.x, (int)m_Users[id].m_AveragePosition.y, id);
-			  Gdx.app.log("Record", "Circle Recorded!");
+			  //Gdx.app.log("Record", "Circle Recorded!");
 			  break;
 		  default:
 			  // else ... DO NOTHING!

@@ -1,5 +1,4 @@
 package com.me.thesalmonfactory;
-
 import com.me.thesalmonfactory.helpers.GameContext;
 
 public class Level {

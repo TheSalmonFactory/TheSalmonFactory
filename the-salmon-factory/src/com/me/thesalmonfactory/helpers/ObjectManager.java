@@ -5,11 +5,11 @@ import java.util.List;
 import com.me.thesalmonfactory.objects.*;
 
 public class ObjectManager {
-	public List<Entity> m_GameObjects;
+	public List<DragObject> m_GameObjects;
 	
 	public ObjectManager() {
 		// TODO create constructor
-		m_GameObjects = new ArrayList<Entity>();
+		m_GameObjects = new ArrayList<DragObject>();
 	}
 	
 	public void Dispose() {
@@ -28,11 +28,11 @@ public class ObjectManager {
 		}
 	}
 	
-	public void AddObject(Entity entity) {
+	public void AddObject(DragObject entity) {
 		m_GameObjects.add(entity);
 	}
 	
-	public void RemoveObject(Entity entity) {
+	public void RemoveObject(DragObject entity) {
 		m_GameObjects.remove(entity);
 	}
 
@@ -53,6 +53,22 @@ public class ObjectManager {
 	public void ProcessTouchDrag(int x, int y, int userID) {
 		for (Entity entity : m_GameObjects) {
 			if(entity.ExcecuteTouchAction(x, y, userID)) {
+				return;
+			}
+		}
+	}
+	
+	public void DragObject(User user) {
+		for (DragObject entity : m_GameObjects) {
+			if(entity.Drag(user)) {
+				return;
+			}
+		}
+	}
+	
+	public void ResetDragObject(int userID) {
+		for (DragObject entity : m_GameObjects) {
+			if(entity.RemoveTarget(userID)) {
 				return;
 			}
 		}

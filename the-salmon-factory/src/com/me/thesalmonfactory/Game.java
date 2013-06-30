@@ -34,8 +34,8 @@ public class Game implements ScreenInterface {
 
 	@Override
 	public void Draw(GameContext context) {
-		m_ObjectManager.Draw(context);
 		m_CurrentLevel.Draw(context);
+		m_ObjectManager.Draw(context);
 	}
 
 	@Override
@@ -65,22 +65,25 @@ public class Game implements ScreenInterface {
 	}
 	
 	public void ProcessActionCircle(int x, int y, int id) {
-		if(x < 50 && y < 50) {
-			CreateNewSalmon(x,y);
+		if(x > LevelParser.SALMON_ROT.x && x < LevelParser.SALMON_ROT.x + GameContext.TILE_WIDTH && 
+				y > LevelParser.SALMON_ROT.y && y < LevelParser.SALMON_ROT.y + GameContext.TILE_WIDTH) {
+			CreateNewSalmon((int)LevelParser.SALMON_SPAWN.x, (int)LevelParser.SALMON_SPAWN.y);
 		} 
-		else if(x > Gdx.app.getGraphics().getWidth() - 50 &&
-			y > Gdx.app.getGraphics().getHeight() - 50) {
-			CreateNewRobot(x,y);
-		}
+		else if(x > LevelParser.ROBOT_ROT.x && x < LevelParser.ROBOT_ROT.x + GameContext.TILE_WIDTH && 
+				y > LevelParser.ROBOT_ROT.y && y < LevelParser.ROBOT_ROT.y + GameContext.TILE_WIDTH) {
+			CreateNewRobot((int)LevelParser.ROBOT_SPAWN.x, (int)LevelParser.ROBOT_SPAWN.y);
+		} 
 	}
 	
 	public void CreateNewSalmon(int x, int y) {
-		DOSalmon salmon = new DOSalmon(x + 100, y + 100);
+		DOSalmon salmon = new DOSalmon(x, y);
 		m_ObjectManager.AddObject(salmon);
+		Gdx.app.log("SALMON", "SPAWN @ " + x + "," + y);
 	}
 	
 	public void CreateNewRobot(int x, int y) {
-		DORobot robot = new DORobot(x - 100, y - 100);
+		DORobot robot = new DORobot(x, y);
 		m_ObjectManager.AddObject(robot);
+		Gdx.app.log("ROBOT", "SPAWN @ " + x + "," + y);
 	}
 }
