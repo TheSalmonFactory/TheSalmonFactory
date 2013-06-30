@@ -95,17 +95,17 @@ public class Entity implements EntityInterface{
 		m_CanMove = true;
 	}
 	
-	public boolean IsPositionInRange(int x, int y) {
+	public boolean IsPositionInRange(int x, int y, float scalar) {
 		//Vector2 pos = GameContext.GetCorrectPosition(new Vector2(x, y));
 		//Vector2 pos = new Vector2(x, y);
 		//return 	m_Position.x < pos.x && m_Position.x + m_Dimensions.x > pos.x &&
 		//		m_Position.y < pos.y && m_Position.y + m_Dimensions.y > pos.y;
 		Vector2 lengthVec = new Vector2(x - m_Position.x, y - m_Position.y);
-		return lengthVec.len() < GameContext.TILE_WIDTH * 4;
+		return lengthVec.len() < GameContext.TILE_WIDTH * scalar;
 	}
 	
 	public boolean ExcecuteTouchAction(int x, int y, int id) {
-		if(IsPositionInRange(x, y)) {
+		if(IsPositionInRange(x, y, 1.0f)) {
 			return ExcecuteFunction(x, y, id);
 		}
 		return false;

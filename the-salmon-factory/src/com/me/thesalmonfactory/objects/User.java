@@ -20,7 +20,7 @@ public class User extends Entity{
 	public Vector2 m_AveragePosition;
 	private Vector2 m_Direction;
 	
-	private static final int MAX_CHECK_POSITIONS = 35;
+	private static final int MAX_CHECK_POSITIONS = 60;
 	
 	private Vector2[] m_CheckPositionArray;
 	private int m_CurrentCheckPositionID;
@@ -129,7 +129,7 @@ public class User extends Entity{
 			Vector2 returnLengthVector = new Vector2(  	m_CurrentPosition.x - m_StartPosition.x, 
 					m_CurrentPosition.y - m_StartPosition.y);
 			float returnLength = returnLengthVector.len();
-			if(returnLength < INITIAL_DIRECTION_DISTANCE_CHECK * 15) {
+			if(returnLength < GameContext.TILE_WIDTH) {
 				return Reset();
 			}
 		}
@@ -173,7 +173,7 @@ public class User extends Entity{
 		if(m_CurrentCheckPositionID > 3) {
 			float previousLength = 0;
 			float currentLength = 0;
-			float checkLength = GameContext.TILE_WIDTH * 0.15f;
+			float checkLength = GameContext.TILE_WIDTH * 0.35f;
 			boolean checkCircle = true;
 			for(int i = 0 ; i < m_CurrentCheckPositionID && i < MAX_CHECK_POSITIONS ; i++) {
 				Vector2 checkLengthVec = new Vector2(m_CheckPositionArray[i].x - m_AveragePosition.x, 
@@ -184,6 +184,9 @@ public class User extends Entity{
 						checkCircle = false;
 						break;
 					}
+				} 
+				else {
+					checkLength = currentLength * 0.35f;
 				}
 				previousLength = currentLength;
 				
