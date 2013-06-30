@@ -12,6 +12,7 @@ public class MainActivity extends AndroidApplication {
         
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
+        cfg.hideStatusBar = true;
         
         initialize(new TheSalmonFactory(), cfg);
     }

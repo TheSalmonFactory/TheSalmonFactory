@@ -59,7 +59,7 @@ public class LevelParser {
 
 	public LevelParser(int levelID)
 	{
-		mapMatrix = new int[matrixWidth][matrixHeight][2]; 
+		mapMatrix = new int[matrixWidth][matrixHeight][3]; 
 		
 		if(ROBOT_ROT == null) {
 			ROBOT_ROT = new Vector2(0,0);

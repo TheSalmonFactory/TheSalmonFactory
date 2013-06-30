@@ -15,13 +15,15 @@ public class Game implements ScreenInterface {
 	public Level m_CurrentLevel;
 	private Music m_Music; 
 	private Sound m_RotationSound;
+	private int m_RotationDelayTime;
 
 	public Game() {
 		m_ObjectManager = new ObjectManager();
 		m_CurrentLevel = new Level();
 		m_Music = Gdx.audio.newMusic(Gdx.files.internal("audio/song1game.mp3"));
-		m_RotationSound =  Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Rotation.wav"));
 		m_Music.setLooping(true);
+		m_RotationSound =  Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Rotation.wav"));
+		m_RotationDelayTime = 0;
 	}
 	
 	@Override
@@ -52,6 +54,7 @@ public class Game implements ScreenInterface {
 	public void Update(GameContext context) {
 		m_ObjectManager.Update(context);
 		m_CurrentLevel.Update(context);
+		++m_RotationDelayTime;
 	}
 	
 	public void ProcessTouchDown(int x, int y, int userID) {
@@ -75,7 +78,10 @@ public class Game implements ScreenInterface {
 	}
 	
 	public void ProcessActionCircle(int x, int y, int id) {
-		m_RotationSound.play();
+		if(m_RotationDelayTime > 30) {
+			m_RotationSound.play();
+			m_RotationDelayTime = 0;
+		}
 	}
 	
 	public void CheckForNewGameObject(int x, int y, int id) {

@@ -30,6 +30,8 @@ public class Level {
 				currentLvl.mapMatrix[j][i][0]);
 				context.DrawTile((int)(j * GameContext.TILE_WIDTH), (int)(i * GameContext.TILE_WIDTH), 
 				currentLvl.mapMatrix[j][i][1]);
+				context.DrawTile((int)(j * GameContext.TILE_WIDTH), (int)(i * GameContext.TILE_WIDTH), 
+				currentLvl.mapMatrix[j][i][2]);
 			}
 		}
 		
