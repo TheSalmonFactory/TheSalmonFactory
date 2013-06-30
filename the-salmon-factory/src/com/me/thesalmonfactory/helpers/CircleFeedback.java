@@ -2,11 +2,11 @@ package com.me.thesalmonfactory.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
 
 public class CircleFeedback {
 	
-	private int m_X, m_Y, m_UserID;
+	private int m_X, m_Y;
+	public int m_UserID;
 	private float m_TargetSeconds;
 	private float m_CurrentSeconds;
 	
@@ -34,7 +34,6 @@ public class CircleFeedback {
 		// Do Nothing...
 	}
 
-	@SuppressWarnings("unused")
 	public void Draw(GameContext context) {
 		float scale = m_CurrentSeconds / m_TargetSeconds * SCALE_VALUE;
 		// Draw Texture and use the scale value && m_X && m_Y

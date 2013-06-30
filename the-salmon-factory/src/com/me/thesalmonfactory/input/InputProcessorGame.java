@@ -99,6 +99,8 @@ public class InputProcessorGame implements InputProcessor {
 	   }
 	   for( CircleFeedback feedback : m_Feedbacks) { 
 		   if(feedback.Update(context)) {
+			  m_Game.CheckForNewGameObject((int)m_Users[feedback.m_UserID].m_AveragePosition.x, 
+				(int)m_Users[feedback.m_UserID].m_AveragePosition.y, feedback.m_UserID);
 			   m_Feedbacks.remove(feedback);
 			   break;
 		   }

@@ -8,12 +8,19 @@ public class DragObject extends  GameObject {
 	protected static final int ROBOT_ID = 1;
 	protected static final int SALMON_ID = 0;
 	
+	protected float m_LiveTimer;
+	protected float m_DeadTiming;
+	
+	protected static final float DEFAULT_DEAD_TIME = 2;
+	
 	protected User m_Target;
 
 	public DragObject(int x, int y, int tilesheetID) {
 		super(x, y, tilesheetID);
 		// TODO Auto-generated constructor stub
 		m_Target = null;
+		m_LiveTimer = 0;
+		m_DeadTiming = DEFAULT_DEAD_TIME;
 	}
 	
 	@Override
@@ -42,12 +49,17 @@ public class DragObject extends  GameObject {
 			m_Position.x = -GameContext.m_OffsetX + m_Target.m_CurrentPosition.x;
 			m_Position.y = -GameContext.m_OffsetY + m_Target.m_CurrentPosition.y;
 		}
+		
+		m_LiveTimer += context.GameTime;
+		if(m_LiveTimer > m_DeadTiming) {
+			m_State = EntityState.DEAD;
+		}
 	}
 	
 	public boolean Drag(User user) {
 		if(m_Target == null && 
-				IsPositionInRange((int)user.m_CurrentPosition.x, 
-						Gdx.app.getGraphics().getHeight() - (int)user.m_CurrentPosition.y)) {
+				IsPositionInRange((int)(user.m_CurrentPosition.x), 
+						Gdx.app.getGraphics().getHeight() - (int)user.m_CurrentPosition.y - GameContext.m_OffsetY)) {
 			m_Target = user;
 			return true;
 		}

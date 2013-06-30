@@ -52,6 +52,7 @@ public class TheSalmonFactory implements ApplicationListener {
       
       //State of the game
       m_State = ApplicationState.GAME;
+      m_Game.Start();
       
       //Player game
       m_Player = new Player();

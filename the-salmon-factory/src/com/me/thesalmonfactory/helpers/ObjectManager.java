@@ -3,6 +3,7 @@ package com.me.thesalmonfactory.helpers;
 import java.util.ArrayList;
 import java.util.List;
 import com.me.thesalmonfactory.objects.*;
+import com.me.thesalmonfactory.objects.Entity.EntityState;
 
 public class ObjectManager {
 	public List<DragObject> m_GameObjects;
@@ -25,6 +26,11 @@ public class ObjectManager {
 	public void Update(GameContext context) {
 		for (Entity entity : m_GameObjects) {
 			entity.Update(context);
+			if(entity.m_State == EntityState.DEAD) {
+				entity.Dispose();
+				m_GameObjects.remove(entity);
+				break;
+			}
 		}
 	}
 	
@@ -68,7 +74,7 @@ public class ObjectManager {
 	
 	public void ResetDragObject(int userID) {
 		for (DragObject entity : m_GameObjects) {
-			if(entity.RemoveTarget(userID)) {
+			if(entity.UnsetUser(userID)) {
 				return;
 			}
 		}

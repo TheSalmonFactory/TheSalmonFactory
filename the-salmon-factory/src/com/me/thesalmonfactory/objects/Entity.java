@@ -13,7 +13,7 @@ public class Entity implements EntityInterface{
 	protected Vector2 m_Dimensions;
 	protected User m_User;
 	
-	protected EntityState m_State;
+	public EntityState m_State;
 	protected EntityState m_PreviousState;
 	
 	protected boolean m_CanMove;
@@ -65,7 +65,7 @@ public class Entity implements EntityInterface{
 		}
 	}
 	
-	public boolean SetTarget(int x, int y, int id)
+	/*public boolean SetTarget(int x, int y, int id)
 	{
 		if(m_CanMove) {
 			if(m_User != null) {
@@ -90,16 +90,18 @@ public class Entity implements EntityInterface{
 		}
 		return false;
 	}
-	
+	*/
 	protected void EnableMovement() {
 		m_CanMove = true;
 	}
 	
 	public boolean IsPositionInRange(int x, int y) {
 		//Vector2 pos = GameContext.GetCorrectPosition(new Vector2(x, y));
-		Vector2 pos = new Vector2(x, y);
-		return 	m_Position.x < pos.x && m_Position.x + m_Dimensions.x > pos.x &&
-				m_Position.y < pos.y && m_Position.y + m_Dimensions.y > pos.y;
+		//Vector2 pos = new Vector2(x, y);
+		//return 	m_Position.x < pos.x && m_Position.x + m_Dimensions.x > pos.x &&
+		//		m_Position.y < pos.y && m_Position.y + m_Dimensions.y > pos.y;
+		Vector2 lengthVec = new Vector2(x - m_Position.x, y - m_Position.y);
+		return lengthVec.len() < GameContext.TILE_WIDTH * 4;
 	}
 	
 	public boolean ExcecuteTouchAction(int x, int y, int id) {
@@ -111,6 +113,7 @@ public class Entity implements EntityInterface{
 	
 	//override this function for specialized Touch Input Interaction 
 	protected boolean ExcecuteFunction(int x, int y, int id) {
-		return SetTarget(x, y, id);
+		//return SetTarget(x, y, id);
+		return false;
 	}
 }

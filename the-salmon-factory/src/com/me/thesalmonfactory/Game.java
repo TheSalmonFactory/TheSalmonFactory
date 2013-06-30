@@ -1,6 +1,8 @@
 package com.me.thesalmonfactory;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.math.Vector2;
 import com.me.thesalmonfactory.helpers.GameContext;
 import com.me.thesalmonfactory.helpers.ObjectManager;
 import com.me.thesalmonfactory.objects.DORobot;
@@ -10,21 +12,26 @@ public class Game implements ScreenInterface {
 	
 	public ObjectManager m_ObjectManager;
 	public Level m_CurrentLevel;
+	private Music m_Music; 
 
 	public Game() {
 		m_ObjectManager = new ObjectManager();
 		m_CurrentLevel = new Level();
+		m_Music = Gdx.audio.newMusic(Gdx.files.internal("audio/song1game.mp3"));
+		m_Music.setLooping(true);
 	}
 	
 	@Override
 	public void Start() {
 		// TODO Auto-generated method stub
+		m_Music.play();
 	}
 
 	@Override
 	public void stop() {
 		//Clear ObjectManager when game stops!
 		m_ObjectManager.Clear();
+		m_Music.stop();
 	}
 
 	@Override
@@ -65,14 +72,18 @@ public class Game implements ScreenInterface {
 	}
 	
 	public void ProcessActionCircle(int x, int y, int id) {
-		if(x > LevelParser.SALMON_ROT.x && x < LevelParser.SALMON_ROT.x + GameContext.TILE_WIDTH && 
-				y > LevelParser.SALMON_ROT.y && y < LevelParser.SALMON_ROT.y + GameContext.TILE_WIDTH) {
+	}
+	
+	public void CheckForNewGameObject(int x, int y, int id) {
+		Vector2 lengthVec = new Vector2(x - LevelParser.SALMON_ROT.x, y - LevelParser.SALMON_ROT.y);
+		if( lengthVec.len() < GameContext.TILE_WIDTH * 2 ) {
 			CreateNewSalmon((int)LevelParser.SALMON_SPAWN.x, (int)LevelParser.SALMON_SPAWN.y);
-		} 
-		else if(x > LevelParser.ROBOT_ROT.x && x < LevelParser.ROBOT_ROT.x + GameContext.TILE_WIDTH && 
-				y > LevelParser.ROBOT_ROT.y && y < LevelParser.ROBOT_ROT.y + GameContext.TILE_WIDTH) {
+			return;
+		}
+		lengthVec = new Vector2(x - LevelParser.ROBOT_ROT.x, y - LevelParser.ROBOT_ROT.y);
+		if( lengthVec.len() < GameContext.TILE_WIDTH * 2 ) {
 			CreateNewRobot((int)LevelParser.ROBOT_SPAWN.x, (int)LevelParser.ROBOT_SPAWN.y);
-		} 
+		}
 	}
 	
 	public void CreateNewSalmon(int x, int y) {
