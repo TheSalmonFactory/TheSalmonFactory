@@ -1,8 +1,12 @@
 package com.me.thesalmonfactory.input;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.me.thesalmonfactory.Game;
+import com.me.thesalmonfactory.helpers.CircleFeedback;
 import com.me.thesalmonfactory.helpers.GameContext;
 import com.me.thesalmonfactory.objects.User;
 
@@ -10,6 +14,7 @@ import com.me.thesalmonfactory.objects.User;
 public class InputProcessorGame implements InputProcessor {
 	private Game m_Game;
 	private User[] m_Users;
+	private List<CircleFeedback> m_Feedbacks;
 	
 	private static final int MAX_USERS = 10;
 	
@@ -20,6 +25,7 @@ public class InputProcessorGame implements InputProcessor {
 			m_Users[i] = new User(0,0,i);
 			m_Users[i].Initialize();
 		}
+		m_Feedbacks = new ArrayList<CircleFeedback>();
 	}
 	
    @Override
@@ -89,11 +95,20 @@ public class InputProcessorGame implements InputProcessor {
 	   for( User user : m_Users) {
 		   CheckForAction(user.m_ID, user.UpdateCheck(context));
 	   }
+	   for( CircleFeedback feedback : m_Feedbacks) { 
+		   if(feedback.Update(context)) {
+			   m_Feedbacks.remove(feedback);
+			   break;
+		   }
+	   }
    }
    
    public void Draw(GameContext context) {
 	   for( User user : m_Users) {
 		   user.Draw(context);
+	   }
+	   for( CircleFeedback feedback : m_Feedbacks) { 
+		   feedback.Draw(context);
 	   }
    }
    
@@ -115,5 +130,14 @@ public class InputProcessorGame implements InputProcessor {
 			  // else ... DO NOTHING!
 			  break;
 	  }
+   }
+   
+   public void UpdateFeedbacks(int x, int y, int id) {
+	   for(CircleFeedback feedback : m_Feedbacks) { 
+		   if(feedback.Feed(id)) { 
+			   return;
+		   }
+	   }
+	   m_Feedbacks.add(new CircleFeedback(x,y,5.0f,id));
    }
 }

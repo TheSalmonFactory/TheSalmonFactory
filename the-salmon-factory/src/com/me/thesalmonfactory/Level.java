@@ -1,6 +1,5 @@
 package com.me.thesalmonfactory;
 
-import com.badlogic.gdx.Gdx;
 import com.me.thesalmonfactory.helpers.GameContext;
 
 public class Level {
