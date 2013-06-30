@@ -35,7 +35,8 @@ public class DORobot extends  DragObject {
 		// TODO Auto-generated method stub
 		super.Update(context);	
 		Vector2 validation = Level.ValidateRobotPosition(m_Position);
-		m_Position.x += validation.x;
-		m_Position.y += validation.y;
+		if(validation.y != 0) {
+			m_Position.y = GameContext.SnapValue(m_OldPosition.y);
+		}
 	}
 }

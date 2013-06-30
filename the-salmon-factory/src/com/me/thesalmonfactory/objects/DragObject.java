@@ -68,8 +68,6 @@ public class DragObject extends  GameObject {
 	public void Draw(GameContext context) {
 		// TODO Auto-generated method stub
 		super.Draw(context);
-		m_OldPosition.x = m_Position.x;
-		m_OldPosition.y = m_Position.y;
 	}
 
 	@Override
@@ -105,9 +103,15 @@ public class DragObject extends  GameObject {
 				m_Direction.x = 0;
 				m_GoingHor = false;
 			}
+			m_OldPosition.x = m_Position.x;
+			m_OldPosition.y = m_Position.y;
 			m_RealDirection.x = m_Direction.x;
 			m_Position.x = m_Target.m_CurrentPosition.x - GameContext.TILE_WIDTH / 2 ;
 			m_Position.y = m_Target.m_CurrentPosition.y - GameContext.TILE_WIDTH / 2 ;
+			
+			if(Math.abs(m_Position.y - m_OldPosition.y) > GameContext.TILE_WIDTH / 2) {
+				m_Position.y = m_OldPosition.y;
+			}
 			
 			if(m_Rotation < m_TargetRotation) {
 				m_Rotation += 4000 * context.GameTime;
