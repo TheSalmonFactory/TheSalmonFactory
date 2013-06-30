@@ -78,6 +78,8 @@ public class DragObject extends  GameObject {
 
 			m_Direction.x = m_Target.m_CurrentPosition.x - m_Position.x - GameContext.TILE_WIDTH;
 			m_Direction.y = m_Target.m_CurrentPosition.y - m_Position.y - GameContext.TILE_WIDTH;
+			
+			float prevRotation = m_TargetRotation;
 			m_Direction = m_Direction.nor();
 			if(Math.abs(m_Direction.x) > Math.abs(m_Direction.y)) {
 				if(m_Direction.x < 0) {
@@ -86,7 +88,7 @@ public class DragObject extends  GameObject {
 				} 
 				else {
 					m_Direction.x = 1;
-					m_TargetRotation = -90;
+					m_TargetRotation = 270;
 				}
 				m_Direction.y = 0;
 				m_GoingHor = true;
@@ -103,11 +105,18 @@ public class DragObject extends  GameObject {
 				m_Direction.x = 0;
 				m_GoingHor = false;
 			}
+		
 			m_OldPosition.x = m_Position.x;
 			m_OldPosition.y = m_Position.y;
 			m_RealDirection.x = m_Direction.x;
 			m_Position.x = m_Target.m_CurrentPosition.x - GameContext.TILE_WIDTH / 2 ;
 			m_Position.y = m_Target.m_CurrentPosition.y - GameContext.TILE_WIDTH / 2 ;
+			
+			Vector2 checkVecLen = new Vector2(m_OldPosition.x - m_Position.x,
+					m_OldPosition.y - m_Position.y);
+			if(checkVecLen.len() < 1) {
+				m_TargetRotation = prevRotation;
+			}
 			
 			if(Math.abs(m_Position.y - m_OldPosition.y) > GameContext.TILE_WIDTH / 2) {
 				m_Position.y = m_OldPosition.y;
@@ -117,10 +126,10 @@ public class DragObject extends  GameObject {
 			}
 			
 			if(m_Rotation < m_TargetRotation) {
-				m_Rotation += 4000 * context.GameTime;
+				m_Rotation += 400 * context.GameTime;
 			} 
 			else {
-				m_Rotation -= 4000 * context.GameTime;
+				m_Rotation -= 400 * context.GameTime;
 			}
 			if(Math.abs(m_TargetRotation - m_Rotation) < 36 ) {
 				m_Rotation = m_TargetRotation;
