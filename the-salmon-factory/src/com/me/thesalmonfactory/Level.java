@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.me.thesalmonfactory.helpers.GameContext;
+import com.me.thesalmonfactory.objects.DragObject;
 
 public class Level {
 	
@@ -35,13 +36,13 @@ public class Level {
 			}
 		}
 		
-		for(Vector2 vec : LevelParser.WATER_LIST) { 
+		/*for(Vector2 vec : LevelParser.COMMON_BLOCK_LIST) { 
 			context.Batch.draw(m_BorderTexture, vec.x, vec.y, GameContext.TILE_WIDTH, GameContext.TILE_WIDTH, 0, 0, 32, 32, false, false);
-		}
+		}*/
 		
-		for(Vector2 vec : LevelParser.FISH_ALLOW_LIST) { 
+		/*for(Vector2 vec : LevelParser.FISH_ALLOW_LIST) { 
 			context.Batch.draw(m_BorderColRect, vec.x, vec.y, GameContext.TILE_WIDTH, GameContext.TILE_WIDTH, 0, 0, 32, 32, false, false);
-		}
+		}*/
 	}
 
 	public void Update(GameContext context) {
@@ -51,6 +52,16 @@ public class Level {
 	public static Vector2 ValidateRobotPosition(Vector2 pos) { 
 		Vector2 validation = new Vector2(0,0);
 		float widthCheck = GameContext.TILE_WIDTH * 0.5f;
+		
+		for(DragObject obj : Game.m_ObjectManager.m_GameObjects) {
+			if(obj.m_TileSheetID == 0) {
+				Vector2 lengthVec = new Vector2(obj.m_Position.x - pos.x, obj.m_Position.y - pos.y);
+				if(lengthVec.len() < GameContext.TILE_WIDTH) {
+					return validation;
+				}
+			}
+		}
+		
 		for(Vector2 vec : LevelParser.WATER_LIST) {
 			Vector2 testVecY = new Vector2(0, vec.y - pos.y);
 			Vector2 testVecX = new Vector2(vec.x - pos.x, 0);

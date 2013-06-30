@@ -26,6 +26,8 @@ public class DORobot extends  DragObject {
 		
 		m_MoveSound = Gdx.audio.newSound(Gdx.files.internal("audio/SFX_RobotMoves.mp3"));
 		m_MoveSoundPlaying = false;
+		
+		m_DeadTiming *= 1.5f;
 	}
 	
 	@Override

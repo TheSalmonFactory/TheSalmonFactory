@@ -26,6 +26,8 @@ public class DOSalmon extends  DragObject {
 		m_MoveSoundPlaying = false;
 		
 		SALMON_POP_SOUND.play();
+		
+		m_DeadTiming *= 2;
 	}
 	
 	@Override
