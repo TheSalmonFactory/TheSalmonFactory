@@ -112,6 +112,9 @@ public class DragObject extends  GameObject {
 			if(Math.abs(m_Position.y - m_OldPosition.y) > GameContext.TILE_WIDTH / 2) {
 				m_Position.y = m_OldPosition.y;
 			}
+			if(Math.abs(m_Position.x - m_OldPosition.x) > GameContext.TILE_WIDTH / 2) {
+				m_Position.x = m_OldPosition.x;
+			}
 			
 			if(m_Rotation < m_TargetRotation) {
 				m_Rotation += 4000 * context.GameTime;

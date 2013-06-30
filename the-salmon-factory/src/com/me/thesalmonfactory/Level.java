@@ -50,29 +50,37 @@ public class Level {
 	
 	public static Vector2 ValidateRobotPosition(Vector2 pos) { 
 		Vector2 validation = new Vector2(0,0);
+		float widthCheck = GameContext.TILE_WIDTH * 0.75f;
 		for(Vector2 vec : LevelParser.WATER_LIST) {
 			Vector2 testVecY = new Vector2(0, vec.y - pos.y);
 			Vector2 testVecX = new Vector2(vec.x - pos.x, 0);
-			if( validation.y == 0 && testVecX.len() <= GameContext.TILE_WIDTH && testVecY.len() <= GameContext.TILE_WIDTH) { 
-				if(pos.y < vec.y) { 
-					//Gdx.app.log("p.y < v.y", "p.y == " + pos.y + " && v.y == " + vec.y + " && TW = " + GameContext.TILE_WIDTH);
-					validation.y = GameContext.TILE_WIDTH - pos.y - vec.y;
+			if(( validation.y == 0 || validation.x == 0)&& testVecX.len() < widthCheck && testVecY.len() < widthCheck) {
+				if(testVecY.len() > widthCheck / 2) {
+					Gdx.app.log("p.y < v.y", "p.y == " + pos.y + " && v.y == " + vec.y + " && TW = " + GameContext.TILE_WIDTH);
+					if(pos.y > vec.y) { 
+						validation.y = pos.y - vec.y - GameContext.TILE_WIDTH;
+					}
+					else {
+						validation.y = pos.y - vec.y + GameContext.TILE_WIDTH;
+					}
 				}
-				else {
-					validation.y = pos.y - vec.y - GameContext.TILE_WIDTH;
-				}
-				if(pos.x > vec.x) { 
-					//Gdx.app.log("p.y < v.y", "p.y == " + pos.y + " && v.y == " + vec.y + " && TW = " + GameContext.TILE_WIDTH);
-					validation.x = GameContext.TILE_WIDTH - pos.x - vec.x;
-				}
-				else {
-					validation.x = pos.x - vec.x - GameContext.TILE_WIDTH;
+				if(testVecX.len() > widthCheck / 2) {
+					//Gdx.app.log("p.y < v.y", "p.x == " + pos.x + " && v.x == " + vec.x + " && TW = " + GameContext.TILE_WIDTH);
+					if(pos.x > vec.x) { 
+						//Gdx.app.log("p.y < v.y", "p.y == " + pos.y + " && v.y == " + vec.y + " && TW = " + GameContext.TILE_WIDTH);
+						//validation.x = GameContext.TILE_WIDTH - vec.x - pos.x;
+						validation.x = pos.x - vec.x - GameContext.TILE_WIDTH;
+					}
+					else {
+						//validation.x = vec.x - pos.x - GameContext.TILE_WIDTH;
+						validation.x =  pos.x - vec.x + GameContext.TILE_WIDTH;
+					}
 				}
 				m_ColVec.x = vec.x;
 				m_ColVec.y = vec.y;
 				m_RobotVec.x = pos.x;
 				m_RobotVec.y = pos.y;
-				break;
+				//break;
 			}
 		}
 		return validation;//ValidatePosition(pos, validation);
