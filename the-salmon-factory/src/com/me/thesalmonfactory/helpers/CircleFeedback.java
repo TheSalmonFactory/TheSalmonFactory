@@ -1,6 +1,8 @@
 package com.me.thesalmonfactory.helpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 
 public class CircleFeedback {
 	
@@ -24,7 +26,7 @@ public class CircleFeedback {
 		m_DelayTime = 0;
 		
 		if(m_Texture == null) { 
-			//Create Texture here!
+			m_Texture = new Texture(Gdx.files.internal("Circle.png"));
 		}
 	}
 
@@ -36,6 +38,13 @@ public class CircleFeedback {
 	public void Draw(GameContext context) {
 		float scale = m_CurrentSeconds / m_TargetSeconds * SCALE_VALUE;
 		// Draw Texture and use the scale value && m_X && m_Y
+		Rectangle circle = new Rectangle();
+		circle.x = m_X;
+		circle.y = m_Y;
+		circle.width = scale;
+		circle.height = scale;
+		
+		context.Batch.draw(m_Texture, m_X, m_Y);
 	}
 
 	public boolean Update(GameContext context) {
