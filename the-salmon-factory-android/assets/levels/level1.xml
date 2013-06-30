@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="13" height="8" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tilesheet-32" tilewidth="32" tileheight="32">
-  <image source="tilesheet-32.png" width="1024" height="1024"/>
+  <image source="../img/tilesheet-32.png" width="1024" height="1024"/>
  </tileset>
  <layer name="Tile Layer 1" width="13" height="8">
   <data>
@@ -11,7 +11,7 @@
    <tile gid="109"/>
    <tile gid="173"/>
    <tile gid="103"/>
-   <tile gid="141"/>
+   <tile gid="109"/>
    <tile gid="109"/>
    <tile gid="109"/>
    <tile gid="173"/>
@@ -165,7 +165,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="46"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="18"/>
    <tile gid="0"/>
@@ -189,7 +189,7 @@
    <tile gid="0"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="143"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -227,7 +227,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="113"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -256,7 +255,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="113"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -273,7 +273,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="904"/>
-   <tile gid="838"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -297,7 +297,7 @@
    <tile gid="0"/>
    <tile gid="3"/>
    <tile gid="113"/>
-   <tile gid="113"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="113"/>
    <tile gid="113"/>
@@ -312,7 +312,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="113"/>
+   <tile gid="0"/>
    <tile gid="113"/>
    <tile gid="0"/>
    <tile gid="0"/>
