@@ -15,7 +15,7 @@ public class User extends Entity{
 	public boolean m_Active;
 	
 	private Vector2 m_StartPosition;
-	private Vector2 m_CurrentPosition;
+	public Vector2 m_CurrentPosition;
 	private Vector2 m_CheckPosition;
 	public Vector2 m_AveragePosition;
 	private Vector2 m_Direction;
@@ -129,7 +129,7 @@ public class User extends Entity{
 			Vector2 returnLengthVector = new Vector2(  	m_CurrentPosition.x - m_StartPosition.x, 
 					m_CurrentPosition.y - m_StartPosition.y);
 			float returnLength = returnLengthVector.len();
-			if(returnLength < INITIAL_DIRECTION_DISTANCE_CHECK * 10) {
+			if(returnLength < INITIAL_DIRECTION_DISTANCE_CHECK * 15) {
 				return Reset();
 			}
 		}

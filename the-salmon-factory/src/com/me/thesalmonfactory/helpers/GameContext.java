@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameContext {
 	public float GameTime;
@@ -14,7 +15,8 @@ public class GameContext {
 	public static final int HOR_TILES = 32;
 	
 	private Texture m_Spritesheet;
-	private int m_OffsetX, m_OffsetY;
+	public static int m_OffsetX;
+	public static int m_OffsetY;
 	
 	public void Initialize()
 	{
@@ -38,8 +40,29 @@ public class GameContext {
 		//float v = ((id / HOR_TILES) * 32) / 1024.0f;
 		//Batch.draw(m_Spritesheet, x, y, TILE_WIDTH, TILE_WIDTH, 
 			//	u, v, u + uvExtra, v + uvExtra, false, true);
-		Batch.draw(m_Spritesheet, x + m_OffsetX, 
-				Gdx.app.getGraphics().getHeight() - y - Gdx.app.getGraphics().getHeight() / 7 - m_OffsetY, TILE_WIDTH, TILE_WIDTH, 
+		Vector2 pos = GetCorrectPosition(new Vector2(x, y));
+		Batch.draw(m_Spritesheet, (int)pos.x, (int)pos.y, TILE_WIDTH, TILE_WIDTH, 
 				(id % HOR_TILES) * 32, (id / HOR_TILES) * 32, 32, 32, false, false);
+	}
+	
+	public void DrawEntity(int x, int y, int tileID, int animationID, int animationFrame)
+	{
+		//float uvExtra = 32.0f / 1024.0f;
+		//float u = () / 1024.0f;
+		//float v = ((id / HOR_TILES) * 32) / 1024.0f;
+		//Batch.draw(m_Spritesheet, x, y, TILE_WIDTH, TILE_WIDTH, 
+			//	u, v, u + uvExtra, v + uvExtra, false, true);
+		Batch.draw(m_Spritesheet, m_OffsetX + x, m_OffsetY + y, TILE_WIDTH, TILE_WIDTH, 
+				(tileID % HOR_TILES) * 32, (tileID / HOR_TILES) * 32, 32, 32, false, false);
+	}
+	
+	public static Vector2 GetPosition(int idX, int idY) {
+		return new Vector2(idX * TILE_WIDTH, idY * TILE_WIDTH);
+	}
+	
+	public static Vector2 GetCorrectPosition(Vector2 pos) {
+		pos.x = pos.x + m_OffsetX; 
+		pos.y = Gdx.app.getGraphics().getHeight() - pos.y - Gdx.app.getGraphics().getHeight() / 7 - m_OffsetY;
+		return pos;
 	}
 }

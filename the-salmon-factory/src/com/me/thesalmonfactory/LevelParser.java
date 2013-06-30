@@ -9,13 +9,18 @@ import org.w3c.dom.NodeList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
+import com.me.thesalmonfactory.helpers.GameContext;
 
 public class LevelParser {
 	
 	public static final int matrixWidth = 13, matrixHeight = 8;
 	public int[][][] mapMatrix; 
+	
+	public static Vector2 ROBOT_ROT, ROBOT_SPAWN, 
+		SALMON_ROT, SALMON_SPAWN;
 	
 	public void displayMatrix(){
 		for(int i = 0 ; i < matrixHeight ; i++)
@@ -49,6 +54,13 @@ public class LevelParser {
 	public LevelParser(int levelID)
 	{
 		mapMatrix = new int[matrixWidth][matrixHeight][2]; 
+		
+		if(ROBOT_ROT == null) {
+			ROBOT_ROT = new Vector2(0,0);
+			ROBOT_SPAWN = new Vector2(0,0);
+			SALMON_ROT = new Vector2(0,0);
+			SALMON_SPAWN = new Vector2(0,0);
+		}
 
 		FileHandle levelFile = Gdx.files.internal("levels/level" + levelID + ".xml");
 		XmlReader xml = new XmlReader();
@@ -77,6 +89,7 @@ public class LevelParser {
 					
 					int tempInt = 0;
 					tempInt = Integer.parseInt(currentTile.getAttribute("gid")) - 1;
+					AddSpecialTiles(tileCountX, tileCountY, tempInt);
 					mapMatrix[tileCountX][tileCountY][layerCount] = tempInt;
 					
 					if (tileCountX < matrixWidth - 1)
@@ -93,7 +106,25 @@ public class LevelParser {
 		    }
 		}
 	}
-			
-
-			
+	
+	private void AddSpecialTiles(int x, int y, int id) {
+		switch(id) {
+			//Salmon Spawn
+			case 5: 
+				SALMON_SPAWN = GameContext.GetPosition(x, y);
+				break;
+			//Robot Rotation
+			case 13: 
+				ROBOT_ROT = GameContext.GetPosition(x, y);
+				break;
+			//Salmon Spawn
+			case 37: 
+				SALMON_ROT = GameContext.GetPosition(x, y);
+				break;
+			//Robot  Spawn
+			case 45: 
+				ROBOT_SPAWN = GameContext.GetPosition(x, y);
+				break;
+		}
+	}
 }
