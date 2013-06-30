@@ -2,6 +2,8 @@ package com.me.thesalmonfactory;
 
 //import java.io.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,6 +23,8 @@ public class LevelParser {
 	
 	public static Vector2 ROBOT_ROT, ROBOT_SPAWN, 
 		SALMON_ROT, SALMON_SPAWN;
+	
+	public static List<Vector2> WATER_LIST = null;
 	
 	public void displayMatrix(){
 		for(int i = 0 ; i < matrixHeight ; i++)
@@ -60,6 +64,10 @@ public class LevelParser {
 			ROBOT_SPAWN = new Vector2(0,0);
 			SALMON_ROT = new Vector2(0,0);
 			SALMON_SPAWN = new Vector2(0,0);
+		}
+		
+		if(WATER_LIST == null) {
+			WATER_LIST = new ArrayList<Vector2>();
 		}
 
 		FileHandle levelFile = Gdx.files.internal("levels/level" + levelID + ".xml");
@@ -126,5 +134,12 @@ public class LevelParser {
 				ROBOT_SPAWN = GameContext.GetPosition(x, y);
 				break;
 		}
+		if(id / 32 < 28 && (id % 32 == 5 || id % 32 == 6 || id % 32 == 7)) {
+			WATER_LIST.add(GameContext.GetPosition(x, y));
+		}
+	}
+	
+	public void Dispose() {
+		WATER_LIST.clear();
 	}
 }

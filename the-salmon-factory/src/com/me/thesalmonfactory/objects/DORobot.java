@@ -1,5 +1,7 @@
 package com.me.thesalmonfactory.objects;
 
+import com.badlogic.gdx.math.Vector2;
+import com.me.thesalmonfactory.Level;
 import com.me.thesalmonfactory.helpers.GameContext;
 
 public class DORobot extends  DragObject {
@@ -32,5 +34,8 @@ public class DORobot extends  DragObject {
 	public void Update(GameContext context) {
 		// TODO Auto-generated method stub
 		super.Update(context);	
+		Vector2 validation = Level.ValidateRobotPosition(m_Position);
+		m_Position.x += validation.x;
+		m_Position.y += validation.y;
 	}
 }

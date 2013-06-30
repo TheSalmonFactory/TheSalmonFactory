@@ -13,6 +13,7 @@ public class DragObject extends  GameObject {
 	protected float m_DeadTiming;
 	
 	protected float m_Rotation;
+	protected float m_TargetRotation;
 	
 	protected static final float DEFAULT_DEAD_TIME = 5;
 	
@@ -37,6 +38,7 @@ public class DragObject extends  GameObject {
 		m_DeadTiming = DEFAULT_DEAD_TIME;
 		
 		m_Rotation = 0;
+		m_TargetRotation = 0;
 		
 		m_Direction = new Vector2(0,0);
 		m_RealDirection = new Vector2(0,0);
@@ -66,6 +68,8 @@ public class DragObject extends  GameObject {
 	public void Draw(GameContext context) {
 		// TODO Auto-generated method stub
 		super.Draw(context);
+		m_OldPosition.x = m_Position.x;
+		m_OldPosition.y = m_Position.y;
 	}
 
 	@Override
@@ -76,52 +80,43 @@ public class DragObject extends  GameObject {
 
 			m_Direction.x = m_Target.m_CurrentPosition.x - m_Position.x - GameContext.TILE_WIDTH;
 			m_Direction.y = m_Target.m_CurrentPosition.y - m_Position.y - GameContext.TILE_WIDTH;
-			if(m_Direction.len() > GameContext.TILE_WIDTH ) {
-				Vector2 lengthVecCheck = new Vector2(m_TargetPos.x - m_Position.x, m_TargetPos.y - m_Position.y);
-				if(lengthVecCheck.len() < GameContext.TILE_WIDTH) {
-					m_Direction = m_Direction.nor();
-					if(Math.abs(m_Direction.x) > Math.abs(m_Direction.y)) {
-						if(m_Direction.x < 0) {
-							m_Direction.x = -1;
-							m_Rotation = 90;
-						} 
-						else {
-							m_Direction.x = 1;
-							m_Rotation = 270;
-						}
-						m_Direction.y = 0;
-						m_GoingHor = true;
-					}
-					else {
-						if(m_Direction.y < 0) {
-							m_Direction.y = -1;
-							m_Rotation = 180;
-						} 
-						else {
-							m_Direction.y = 1;
-							m_Rotation = 0;
-						}
-						m_Direction.x = 0;
-						m_GoingHor = false;
-					}
-					m_RealDirection.x = m_Direction.x;
-					m_RealDirection.y = m_Direction.y;
-					m_TargetPos.x = m_Position.x + m_Direction.x * GameContext.TILE_WIDTH;
-					m_TargetPos.y = m_Position.y + m_Direction.y * GameContext.TILE_WIDTH;
-					m_TargetPos = GameContext.SnapPosition(m_TargetPos);
-				//m_Rotation = (float)Math.atan2(m_RealDirection.x, m_RealDirection.y) * 2.0f * (float)Math.PI;
-				//Gdx.app.log("Rotation", " == " + m_Rotation);
-					
-				}
-				m_Position.x += m_RealDirection.x * context.GameTime * m_Speed;
-				m_Position.y += m_RealDirection.y * context.GameTime * m_Speed;
-				
-				if(m_GoingHor) {
-					m_Position.y = GameContext.SnapValue(m_Position.y);
-				}
+			m_Direction = m_Direction.nor();
+			if(Math.abs(m_Direction.x) > Math.abs(m_Direction.y)) {
+				if(m_Direction.x < 0) {
+					m_Direction.x = -1;
+					m_TargetRotation = 90;
+				} 
 				else {
-					m_Position.x = GameContext.SnapValue(m_Position.x);
+					m_Direction.x = 1;
+					m_TargetRotation = -90;
 				}
+				m_Direction.y = 0;
+				m_GoingHor = true;
+			}
+			else {
+				if(m_Direction.y < 0) {
+					m_Direction.y = -1;
+					m_TargetRotation = 180;
+				} 
+				else {
+					m_Direction.y = 1;
+					m_TargetRotation = 0;
+				}
+				m_Direction.x = 0;
+				m_GoingHor = false;
+			}
+			m_RealDirection.x = m_Direction.x;
+			m_Position.x = m_Target.m_CurrentPosition.x - GameContext.TILE_WIDTH;
+			m_Position.y = m_Target.m_CurrentPosition.y - GameContext.TILE_WIDTH;
+			
+			if(m_Rotation < m_TargetRotation) {
+				m_Rotation += 4000 * context.GameTime;
+			} 
+			else {
+				m_Rotation -= 4000 * context.GameTime;
+			}
+			if(Math.abs(m_TargetRotation - m_Rotation) < 36 ) {
+				m_Rotation = m_TargetRotation;
 			}
 		}
 		
@@ -137,6 +132,8 @@ public class DragObject extends  GameObject {
 						Gdx.app.getGraphics().getHeight() - (int)user.m_CurrentPosition.y - GameContext.m_OffsetY)) {
 			m_TargetPos.x = m_Position.x;
 			m_TargetPos.y = m_Position.y;
+			m_OldPosition.x = m_Position.x;
+			m_OldPosition.y = m_Position.y;
 			m_Target = user;
 			return true;
 		}
