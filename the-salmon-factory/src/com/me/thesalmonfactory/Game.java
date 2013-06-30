@@ -2,6 +2,7 @@ package com.me.thesalmonfactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.me.thesalmonfactory.helpers.GameContext;
 import com.me.thesalmonfactory.helpers.ObjectManager;
@@ -13,11 +14,13 @@ public class Game implements ScreenInterface {
 	public ObjectManager m_ObjectManager;
 	public Level m_CurrentLevel;
 	private Music m_Music; 
+	private Sound m_RotationSound;
 
 	public Game() {
 		m_ObjectManager = new ObjectManager();
 		m_CurrentLevel = new Level();
 		m_Music = Gdx.audio.newMusic(Gdx.files.internal("audio/song1game.mp3"));
+		m_RotationSound =  Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Rotation.wav"));
 		m_Music.setLooping(true);
 	}
 	
@@ -72,6 +75,7 @@ public class Game implements ScreenInterface {
 	}
 	
 	public void ProcessActionCircle(int x, int y, int id) {
+		m_RotationSound.play();
 	}
 	
 	public void CheckForNewGameObject(int x, int y, int id) {

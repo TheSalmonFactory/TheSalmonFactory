@@ -25,6 +25,8 @@ public class LevelParser {
 		SALMON_ROT, SALMON_SPAWN;
 	
 	public static List<Vector2> WATER_LIST = null;
+	public static List<Vector2> FISH_ALLOW_LIST = null;
+	public static List<Vector2> COMMON_BLOCK_LIST = null;
 	
 	public void displayMatrix(){
 		for(int i = 0 ; i < matrixHeight ; i++)
@@ -68,6 +70,14 @@ public class LevelParser {
 		
 		if(WATER_LIST == null) {
 			WATER_LIST = new ArrayList<Vector2>();
+		}
+		
+		if(FISH_ALLOW_LIST == null) {
+			FISH_ALLOW_LIST = new ArrayList<Vector2>();
+		}
+		
+		if(COMMON_BLOCK_LIST == null) {
+			COMMON_BLOCK_LIST = new ArrayList<Vector2>();
 		}
 
 		FileHandle levelFile = Gdx.files.internal("levels/level" + levelID + ".xml");
@@ -134,11 +144,18 @@ public class LevelParser {
 				ROBOT_SPAWN = GameContext.GetPosition(x, y);
 				break;
 		}
-		if(id / 32 < 28 && (id % 32 == 5 || id % 32 == 6 || id % 32 == 7)) {
-			Vector2 pos = GameContext.GetPosition(x, y);
-			pos.x += GameContext.m_OffsetX;
-			pos.y = Gdx.app.getGraphics().getHeight() - pos.y - GameContext.TILE_WIDTH * 1.55f;
+		Vector2 pos = GameContext.GetPosition(x, y);
+		pos.x += GameContext.m_OffsetX;
+		pos.y = Gdx.app.getGraphics().getHeight() - pos.y - GameContext.TILE_WIDTH * 1.55f;
+		if(id / 32 < 30 && (id % 32 == 8 || id%32 == 11 || id%32 == 16 || id%32 == 17)) {
+			COMMON_BLOCK_LIST.add(pos);
+		}
+		else if(id / 32 < 30 && (id % 32 == 5 || id % 32 == 6 || id % 32 == 7)) {
+			
 			WATER_LIST.add(pos);
+		}
+		else if(id / 32 < 30 && id > -1){
+			FISH_ALLOW_LIST.add(pos);
 		}
 	}
 	

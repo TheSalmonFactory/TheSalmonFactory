@@ -11,7 +11,7 @@ public class CircleFeedback {
 	private float m_CurrentSeconds;
 	
 	private static final int SCALE_VALUE = 2;
-	private static final float MAX_CIRCLE_DELAY = 0.25f;
+	private static final float MAX_CIRCLE_DELAY = 0.4f;
 	
 	private static Texture m_Texture = null;
 	private float m_DelayTime;

@@ -36,7 +36,15 @@ public class DOSalmon extends  DragObject {
 		// TODO Auto-generated method stub
 		super.Update(context);
 		Vector2 validation = Level.ValidateSalmonPosition(m_Position);
-		m_Position.x += validation.x;
-		m_Position.y += validation.y;
+		//m_Position.x += validation.x;
+		//m_Position.y += validation.y;
+		if(validation.x != 0) {
+			//Gdx.app.log("validation", "validation.x == " + validation.x);
+			m_Position.x -= validation.x;
+		}
+		if(validation.y != 0) {
+			//Gdx.app.log("validation", "validation.x == " + validation.x);
+			m_Position.y -= validation.y;
+		}
 	}
 }
