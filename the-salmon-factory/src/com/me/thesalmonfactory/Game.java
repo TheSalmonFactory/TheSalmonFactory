@@ -22,7 +22,7 @@ public class Game implements ScreenInterface {
 		m_CurrentLevel = new Level();
 		m_Music = Gdx.audio.newMusic(Gdx.files.internal("audio/song1game.mp3"));
 		m_Music.setLooping(true);
-		m_RotationSound =  Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Rotation.wav"));
+		m_RotationSound =  Gdx.audio.newSound(Gdx.files.internal("audio/SFX_Rotation.mp3"));
 		m_RotationDelayTime = 0;
 	}
 	
